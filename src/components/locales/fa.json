@@ -40,7 +40,6 @@
     "dns_set_success": "✅ تنظیمات DNS با موفقیت اعمال شد.",
     "endpoint_retrieved": "✅  endpoint دریافت و جای‌گذاری شد.",
     "warp_key_applied": "✅ کلید Warp دریافت و با موفقیت اعمال شد.",
-    "add_warp": "اضافه کردن وارپ",
     "config_imported": "✅ پیکربندی با موفقیت از دیپ لینک (پروتکل) وارد شد: ",
     "warp_mode": "حالت Warp",
     "warp_key": "کلید Warp",
