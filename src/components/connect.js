@@ -17,8 +17,8 @@ class PublicSet {
         this.status = false;
         this.connected = false;
         this.Process = {
-            "vibe": null, "flex": null, "grid": null, "warp": null,
-            "vibeAuto": null, "flexAuto": null, "gridAuto": null, "warpAuto": null,
+            "vibe": null, "flex": null, "grid": null,
+            "vibeAuto": null, "flexAuto": null, "gridAuto": null,
             "setupAuto": null, "setup": null
         };
         this.mainDir = path.join(__dirname, "/../../");
@@ -39,20 +39,7 @@ class PublicSet {
                 timeout: 60000,
                 hiddifyConfigJSON: null
             },
-            "warp": {
-                gool: false,
-                scan: false,
-                endpoint: "",
-                reserved: false,
-                dns: "",
-                verbose: false,
-                scanrtt: "",
-                ipv: "IPV4",
-                key: "",
-                timeout: 60000,
-                cfon: false,
-                testUrl: false,
-            },
+
             "setupGrid": {},
             "public": {
                 proxy: "127.0.0.1:8086",
@@ -78,7 +65,6 @@ class PublicSet {
         };
         this.supported = {
             vibe: ["ss", "http", "vless", "vmess", "trojan", "hysteria", "shadowtls", "tuic", "socks", "wireguard", "hy2"],
-            warp: ["warp"],
             grid: ["grid"],
             flex: ["flex"],
             other: ["proxycloud-gui://"]
@@ -105,21 +91,14 @@ class PublicSet {
         if (process.platform === "linux" || process.platform === "darwin") {
             const destDir = getConfigPath();
             const vibeDestPath = path.join(destDir, "vibe", 'vibe-core');
-            const warpDestPath = path.join(destDir, "warp", 'warp-core');
 
             fs.mkdirSync(path.dirname(vibeDestPath), { recursive: true });
-            fs.mkdirSync(path.dirname(warpDestPath), { recursive: true });
 
             const vibeSourcePath = path.join(baseCorePath, "vibe", "vibe-core");
-            const warpSourcePath = path.join(baseCorePath, "warp", "warp-core");
 
             if (!fs.existsSync(vibeDestPath)) {
                 fs.copyFileSync(vibeSourcePath, vibeDestPath);
                 fs.chmodSync(vibeDestPath, 0o755);
-            }
-            if (!fs.existsSync(warpDestPath)) {
-                fs.copyFileSync(warpSourcePath, warpDestPath);
-                fs.chmodSync(warpDestPath, 0o755);
             }
             this.coresPath = destDir;
         } else {
@@ -236,20 +215,7 @@ class PublicSet {
                 timeout: 60000,
                 hiddifyConfigJSON: null
             },
-            "warp": {
-                gool: false,
-                scan: false,
-                endpoint: "",
-                reserved: false,
-                dns: "",
-                verbose: false,
-                scanrtt: "",
-                ipv: "IPV4",
-                key: "",
-                timeout: 60000,
-                cfon: false,
-                testUrl: false,
-            },
+
             "setupGrid": {},
             "public": {
                 proxy: "127.0.0.1:8086",
@@ -337,16 +303,7 @@ class PublicSet {
                 writeFile(vibeTxtConfigPath, config);
                 this.settingsALL.vibe.config = vibeTxtConfigPath;
             }
-        } else if (this.supported.warp.some(protocol => config.startsWith(protocol))) {
-            this.settingsALL.public.core = "warp";
-            typeConfig = "warp";
-            const optionsWarp = config.split("#")[0].replace("warp://", "").split("&");
-            optionsWarp.forEach(option => {
-                const [key, value] = option.split("=");
-                if (key && value !== undefined) {
-                    this.settingsALL.warp[key] = value;
-                }
-            });
+
             this.saveSettings();
             if (typeof window !== 'undefined' && window.setSettings) {
                 window.setSettings();
@@ -375,7 +332,7 @@ class PublicSet {
         }
 
         if (typeof window !== 'undefined' && window.setATTR && window.setHTML) {
-            window.setATTR("#imgServerSelected", "src", `../svgs/${typeConfig === "warp" ? "warp.webp" : typeConfig === "vibe" ? "vibe.png" : "ir.svg"}`);
+            window.setATTR("#imgServerSelected", "src", `../svgs/${typeConfig === "vibe" ? "vibe.png" : "ir.svg"}`);
             window.setHTML("#textOfServer", config.includes("#") ? config.split("#").pop().trim().split("***")[0] : config.substring(0, 50));
         }
         this.saveSettings();
@@ -592,34 +549,8 @@ class PublicSet {
                 "enable-padding": false,
                 "padding-size": "1-1500"
             },
-            "warp": {
-                "enable": false,
-                "mode": "proxy_over_warp",
-                "wireguard-config": "",
-                "license-key": "",
-                "account-id": "",
-                "access-token": "",
-                "clean-ip": "auto",
-                "clean-port": 0,
-                "noise": "1-3",
-                "noise-size": "10-30",
-                "noise-delay": "10-30",
-                "noise-mode": "m6"
-            },
-            "warp2": {
-                "enable": false,
-                "mode": "proxy_over_warp",
-                "wireguard-config": "",
-                "license-key": "",
-                "account-id": "",
-                "access-token": "",
-                "clean-ip": "auto",
-                "clean-port": 0,
-                "noise": "1-3",
-                "noise-size": "10-30",
-                "noise-delay": "10-30",
-                "noise-mode": "m6"
-            }
+
+
         };
     }
     startINIT() {
@@ -698,20 +629,7 @@ class ConnectAuto extends PublicSet {
 
             this.log(`Trying mode: ${mode}, config: ${cleanConfigString}`);
 
-            if (mode === "warp") {
-                const options = cleanConfigString.replace("warp://", "").split("&");
-                this.settings.warp = {};
-                options.forEach(option => {
-                    const [key, value] = option.split("=");
-                    if (key && value !== undefined) {
-                        this.settings.warp[key] = value;
-                    }
-                });
-                try {
-                    await this.connectWarp();
-                }
-                catch { }
-            } else if (mode === "vibe") {
+            if (mode === "vibe") {
                 this.settings.vibe.config = cleanConfigString;
                 try {
                     await this.connectVibe();
@@ -726,52 +644,6 @@ class ConnectAuto extends PublicSet {
         }
     }
 
-    connectWarp() {
-        return new Promise((resolve, reject) => {
-            this.log("Starting warp for Auto-connect...");
-            this.resetArgs("warp");
-
-            setTimeout(async () => {
-                try {
-                    const corePath = path.join(this.coresPath, "warp", this.addExt("warp-core"));
-                    this.log(`Spawning Warp process: ${corePath} ${this.argsWarp.join(' ')}`);
-
-                    this.processWarp = spawn(corePath, this.argsWarp);
-                    this.Process.warpAuto = this.processWarp;
-
-                    this.processWarp.stderr.on("data", (data) => this.dataOutWarp(data.toString()));
-                    this.processWarp.stdout.on("data", (data) => this.dataOutWarp(data.toString()));
-                    this.processWarp.on("close", (code) => {
-                        this.log(`Warp Auto process exited with code ${code}.`);
-                        this.killVPN("warpAuto");
-                        this.offProxy();
-                        reject(false);
-                    });
-
-                    await this.sleep(this.settingsALL.warp.timeout);
-                    for (let i = 0; i < 3 && !this.connected; i++) {
-                        this.connected = !(await this.getIP_Ping()).filternet;
-                        if (this.connected) break;
-                        await this.sleep(1000);
-                    }
-
-                    if (this.connected) {
-                        resolve(true);
-                    } else {
-                        this.log("Warp Auto-connect failed after multiple checks.");
-                        this.killVPN("warpAuto");
-                        this.offProxy();
-                        reject(false);
-                    }
-                } catch (error) {
-                    this.log(`Error in Warp Auto-connect: ${error.message}`);
-                    this.killVPN("warpAuto");
-                    this.offProxy();
-                    reject(false);
-                }
-            }, 1000);
-        });
-    }
 
     connectVibe() {
         return new Promise((resolve, reject) => {
@@ -862,58 +734,14 @@ class ConnectAuto extends PublicSet {
                 this.argsVibe.push("--hiddify", hiddifyConfigPath);
             }
 
-        } else if (core === "warp") {
-            this.argsWarp = [];
-            const warpSettings = this.settings.warp;
 
-            if (this.settingsALL.public.proxy !== "127.0.0.1:8086") {
-                this.argsWarp.push("--bind", this.settingsALL.public.proxy);
-            }
-            if (warpSettings.ipv === "IPV6") {
-                this.argsWarp.push("-6");
-            }
-            if (warpSettings.gool) {
-                this.argsWarp.push("--gool");
-            }
-            if (warpSettings.scan) {
-                this.argsWarp.push("--scan");
-                if (warpSettings.scanrtt) {
-                    this.argsWarp.push("--rtt", warpSettings.scanrtt || "1s");
-                }
-            }
-            if (warpSettings.endpoint) {
-                this.argsWarp.push("--endpoint", warpSettings.endpoint);
-            }
-            if (warpSettings.key) {
-                this.argsWarp.push("--key", warpSettings.key);
-            }
-            if (warpSettings.dns) {
-                this.argsWarp.push("--dns", warpSettings.dns);
-            }
-            if (warpSettings.cfon) {
-                this.argsWarp.push("--cfon", "--country", warpSettings.cfon === true ? this.Tools.getRandomCountryCode() : warpSettings.cfon);
-            }
-            if (this.settingsALL.public.type === "tun") {
-            }
-            if (warpSettings.reserved) {
-                this.argsWarp.push("--reserved", "0,0,0");
-            }
-            if (warpSettings.verbose) {
-                this.argsWarp.push("--verbose");
-            }
-            if (warpSettings.testUrl) {
-                this.argsWarp.push("--test-url", this.settingsALL.public.testUrl);
-            }
         }
     }
 
     killVPN(core) {
         this.log(`Disconnecting from: ${core}...`);
         try {
-            if (core === "warpAuto" && this.processWarp) {
-                this.processWarp.kill();
-                this.processWarp = null;
-            } else if (core === "vibeAuto" && this.processVibe) {
+            if (core === "vibeAuto" && this.processVibe) {
                 this.processVibe.kill();
                 this.processVibe = null;
             } else if (core === "gridAuto" && this.processGrid) {
@@ -926,9 +754,6 @@ class ConnectAuto extends PublicSet {
             else if (core === "auto") {
                 try {
                     this.processVibe.kill();
-                } catch { };
-                try {
-                    this.processWarp.kill();
                 } catch { };
             }
         } catch (error) {
@@ -950,26 +775,16 @@ class ConnectAuto extends PublicSet {
         }
     }
 
-    dataOutWarp(data) {
-        this.log(`Warp Output: ${data}`);
-        if (data.includes("serving")) {
-            this.reloadSettings();
-            this.connectedVPN("auto");
-            this.connected = true;
-            this.setupGrid(this.settingsALL.public.proxy, this.settingsALL.public.type, "socks5");
-        }
-    }
+
 }
 
 class Connect extends PublicSet {
     constructor() {
         super();
-        this.processWarp = null;
         this.processVibe = null;
         this.processFlex = null;
         this.processGrid = null;
         this.processGridSetup = null;
-        this.argsWarp = [];
         this.argsVibe = [];
         this.argsFlex = [];
         this.argsGrid = [];
@@ -985,9 +800,7 @@ class Connect extends PublicSet {
         this.log(`Starting manual connection for: ${this.settingsALL.public.core}`);
 
         switch (this.settingsALL.public.core) {
-            case 'warp':
-                await this.connectWarp();
-                break;
+
             case 'flex':
                 await this.connectFlex();
                 break;
@@ -1001,33 +814,7 @@ class Connect extends PublicSet {
         }
     }
 
-    async connectWarp() {
-        await this.resetArgs('warp');
-        await this.sleep(1000);
 
-        const corePath = path.join(this.coresPath, "warp", this.addExt("warp-core"));
-        this.log(`Spawning Warp process: ${corePath} ${this.argsWarp.join(' ')}`);
-
-        this.processWarp = spawn(corePath, this.argsWarp);
-        this.Process.warp = this.processWarp;
-
-        this.processWarp.stderr.on("data", (data) => this.dataOutWarp(data.toString()));
-        this.processWarp.stdout.on("data", (data) => this.dataOutWarp(data.toString()));
-        this.processWarp.on("close", (code) => {
-            this.log(`Warp process exited with code ${code}.`);
-            this.killVPN("warp");
-            this.notConnected("warp");
-            this.offProxy();
-        });
-
-        await this.sleep(this.settingsALL.warp.timeout);
-        if (!this.connected) {
-            this.log("Warp manual connection failed after timeout.");
-            this.killVPN("warp");
-            this.notConnected("warp");
-            this.offProxy();
-        }
-    }
 
     async connectVibe() {
         await this.resetArgs("vibe");
@@ -1076,52 +863,9 @@ class Connect extends PublicSet {
         });
     }
 
-    async resetArgs(core = "warp") {
+    async resetArgs(core = "vibe") {
         await this.reloadSettings();
-        if (core === "warp") {
-            this.argsWarp = [];
-            const warpSettings = this.settingsALL.warp;
-
-            if (this.settingsALL.public.proxy !== "127.0.0.1:8086") {
-                this.argsWarp.push("--bind", this.settingsALL.public.proxy);
-            }
-            if (warpSettings.ipv === "IPV6") {
-                this.argsWarp.push("-6");
-            }
-            if (warpSettings.gool) {
-                this.argsWarp.push("--gool");
-            }
-            if (warpSettings.scan) {
-                this.argsWarp.push("--scan");
-                if (warpSettings.scanrtt) {
-                    this.argsWarp.push("--rtt", warpSettings.scanrtt || "1s");
-                }
-            }
-            if (warpSettings.endpoint) {
-                this.argsWarp.push("--endpoint", warpSettings.endpoint);
-            }
-            if (warpSettings.key) {
-                this.argsWarp.push("--key", warpSettings.key);
-            }
-            if (warpSettings.dns) {
-                this.argsWarp.push("--dns", warpSettings.dns);
-            }
-            if (warpSettings.cfon) {
-                this.argsWarp.push("--cfon", "--country", warpSettings.cfon === true ? this.Tools.getRandomCountryCode() : warpSettings.cfon);
-            }
-            if (this.settingsALL.public.type === "tun") {
-            }
-            if (warpSettings.reserved) {
-                this.argsWarp.push("--reserved", "0,0,0");
-            }
-            if (warpSettings.verbose) {
-                this.argsWarp.push("--verbose");
-            }
-            if (warpSettings.testUrl) {
-                this.argsWarp.push("--test-url", this.settingsALL.public.testUrl);
-            }
-        }
-        else if (core === "vibe") {
+        if (core === "vibe") {
             this.argsVibe = ["run", "--config"];
             let vibeConfig = this.settingsALL.vibe.config;
             this.argsVibe.push(vibeConfig.replace(/^"|"$/g, '').replace(/^'|'$/g, ''));
@@ -1159,10 +903,7 @@ class Connect extends PublicSet {
     killVPN(core) {
         this.log(`[Connection] Disconnecting from: ${core}...`);
         try {
-            if (core === "warp" && this.processWarp) {
-                this.processWarp.kill();
-                this.processWarp = null;
-            } else if (core === "vibe" && this.processVibe) {
+            if (core === "vibe" && this.processVibe) {
                 this.processVibe.kill();
                 this.processVibe = null;
             } else if (core === "grid" && this.processGrid) {
@@ -1180,18 +921,7 @@ class Connect extends PublicSet {
         }
     }
 
-    dataOutWarp(data) {
-        this.log(`Warp Output: ${data}`);
-        if (data.includes("serving")) {
-            this.reloadSettings();
-            if (this.settingsALL.public.freedomLink) {
-                this.Tools.donateCONFIG(JSON.stringify(this.settingsALL.warp));
-            }
-            this.connectedVPN("warp");
-            this.connected = true;
-            this.setupGrid(this.settingsALL.public.proxy, this.settingsALL.public.type, "socks5");
-        }
-    }
+
 
     async dataOutVibe(data) {
         this.log(`Vibe Output: ${data}`);
@@ -1213,13 +943,10 @@ class Test extends PublicSet {
             "flex": {},
             "grid": {},
             "vibe": {},
-            "warp": {},
             "public": { ...this.settingsALL.public }
         };
     }
-    testWarp() {
-        this.log("Testing Warp (not implemented).");
-    }
+
     testVibe() {
         this.log("Testing Vibe (not implemented).");
     }

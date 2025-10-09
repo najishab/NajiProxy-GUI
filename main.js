@@ -346,7 +346,7 @@ ipcMain.handle("import-config", async () => {
 app.on('before-quit', () => {
   exec("taskkill /IM " + "vibe-core.exe" + " /F");
   exec('reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /F');
-  exec("taskkill /IM " + "warp-core.exe" + " /F");
+
   if (process.platform !== 'darwin') {
     app.quit();
   }

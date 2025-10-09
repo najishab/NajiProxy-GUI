@@ -85,7 +85,7 @@ window.disconnectedUI = () => {
     mainSTA.publicSet.connected = false;
     mainSTA.publicSet.killAllCores("vibe");
     mainSTA.publicSet.killAllCores("vibe");
-    mainSTA.publicSet.killAllCores("warp");
+    
     mainSTA.connect.killVPN(mainSTA.publicSet.settingsALL["public"]["core"]);
     mainSTA.connectAuto.killVPN();
     ipcRenderer.send("set-off-fg");
@@ -239,7 +239,7 @@ class main {
         $('#setting-app h3:not(.not-sect)').on("click", function () {
             var content = $(this).attr("openSection");
 
-            that.addEventSect(content == "vibe" ? "vibe" : "warp")
+            that.addEventSect(content == "vibe" ? "vibe" : "")
             $("#" + content).slideToggle();
             $(this).toggleClass("active");
         });
@@ -314,7 +314,7 @@ class main {
             window.showMessageUI(this.publicSet.settingsALL["lang"]["copied"])
         });
         $("#menu-kill-all").on("click", () => {
-            this.KILLALLCORES('warp');
+
             this.KILLALLCORES('flex');
             this.KILLALLCORES('grid');
             this.KILLALLCORES('vibe');
@@ -336,15 +336,15 @@ class main {
         // Add Event for settings
         $("#core-guard-selected").on('change', () => {
             this.publicSet.settingsALL["public"]["core"] = $("#core-guard-selected").val(); this.publicSet.saveSettings();
-            $("#warp, #vibe, #auto, #flex, #grid, #new".replace("#" + this.publicSet.settingsALL["public"]["core"] + ",", "")).slideUp();
+            $("#vibe, #auto, #flex, #grid, #new".replace("#" + this.publicSet.settingsALL["public"]["core"] + ",", "")).slideUp();
             $(`#${this.publicSet.settingsALL["public"]["core"]}-settings`).slideDown().addClass("active");
             $(`#${this.publicSet.settingsALL["public"]["core"]}`).slideDown();
-            this.publicSet.settingsALL["public"]["core"] == "warp" ? $("#vpn-type-selected").val("system") : '';
+
             this.addEventSect(this.publicSet.settingsALL["public"]["core"]);
             $("#config-value").val("");
             this.publicSet.importConfig("");
 
-            window.setATTR("#imgServerSelected", "src", "../svgs/" + (this.publicSet.settingsALL["public"]["core"] == "warp" ? "warp.webp" : this.publicSet.settingsALL["public"]["core"] == "vibe" ? "vibe.png" : "ir.svg"));
+            window.setATTR("#imgServerSelected", "src", "../svgs/" + (this.publicSet.settingsALL["public"]["core"] == "vibe" ? "vibe.png" : "ir.svg"));
             window.setHTML("#textOfServer", decodeURIComponent(this.publicSet.settingsALL["public"]["core"] + " Server + Customized"));
         });
         $("#auto-conn-status").on("change", () => {
@@ -465,83 +465,7 @@ class main {
     };
     addEventSect(core) {
         // Add Event for sect settings
-        if (core == "warp") {
-            $("#endpoint-warp-value").on("input", () => {
-                this.publicSet.settingsALL["warp"]["endpoint"] = $("#endpoint-warp-value").val(); this.publicSet.saveSettings();
-            });
-            $("#get-endpoint-warp").on("click", async () => {
-                try {
-                    const response = await this.axios.get("https://raw.githubusercontent.com/ircfspace/endpoint/refs/heads/main/ip.json");
-                    const ipData = (response.data);
-                    const version = this.publicSet.settingsALL["warp"]["ipv"].toLowerCase() ?? "ipv4";
-                    const ipList = version === "ipv6" ? ipData.ipv6 : ipData.ipv4;
-                    if (ipList.length === 0) {
-                        this.publicSet.log("No available endpoints for the selected IP version.");
-                        return;
-                    }
-                    const randomIP = ipList[Math.floor(Math.random() * ipList.length)];
-                    $("#endpoint-warp-value").val(randomIP);
-                    this.publicSet.settingsALL["warp"]["endpoint"] = randomIP;
-                    this.publicSet.saveSettings();
-                    window.showMessageUI(this.publicSet.settingsALL["lang"]["endpoint_retrieved"]);
-                } catch (error) {
-                    this.publicSet.log("Error fetching endpoint data:", error);
-                }
-            });
-            $("#Gool").on("click", () => {
-                if (!this.publicSet.settingsALL["warp"]["gool"]) {
-                    this.publicSet.settingsALL["warp"]["cfon"] = false;
-                    $("#cfon").prop("checked", this.publicSet.settingsALL["warp"]["cfon"]);
-                };
-                this.publicSet.settingsALL["warp"]["gool"] = !this.publicSet.settingsALL["warp"]["gool"]; this.publicSet.saveSettings();
-            });
-
-            $("#cfon").on("click", () => {
-                if (!this.publicSet.settingsALL["warp"]["cfon"]) {
-                    this.publicSet.settingsALL["warp"]["gool"] = false;
-                    $("#Gool").prop("checked", this.publicSet.settingsALL["warp"]["gool"]);
-                };
-                this.publicSet.settingsALL["warp"]["cfon"] = !this.publicSet.settingsALL["warp"]["cfon"]; this.publicSet.saveSettings();
-            });
-            $("#Scan").on("click", () => {
-                this.publicSet.settingsALL["warp"]["scan"] = !this.publicSet.settingsALL["warp"]["scan"]; this.publicSet.saveSettings();
-            });
-            $("#get-key-warp").on("click", async () => {
-                try {
-                    const response = await this.axios.get("https://raw.githubusercontent.com/ircfspace/warpkey/main/plus/full");
-                    const keys = response.data.split("\n").filter(key => key.trim() !== "");
-                    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-                    $("#warp-key-value").val(randomKey);
-                    this.publicSet.settingsALL["warp"]["key"] = randomKey;
-                    this.publicSet.saveSettings();
-                    window.showMessageUI(this.publicSet.settingsALL["lang"]["warp_key_applied"]);
-                } catch (error) {
-                    this.publicSet.log("Error fetching WARP keys:", error);
-                }
-            });
-            $("#warp-key-value").on("input", () => {
-                this.publicSet.settingsALL["warp"]["key"] = $("#warp-key-value").val(); this.publicSet.saveSettings();
-            });
-            $("#selector-ip-version-warp").on("change", () => {
-                this.publicSet.settingsALL["warp"]["ipv"] = $("#selector-ip-version-warp").val(); this.publicSet.saveSettings();
-            });
-            $("#scan-rtt-value").on("input", () => {
-                this.publicSet.settingsALL["warp"]["scanrtt"] = $("#scan-rtt-value").val(); this.publicSet.saveSettings();
-            });
-            $("#verbose-status").on("click", () => {
-                this.publicSet.settingsALL["warp"]["verbose"] = !this.publicSet.settingsALL["warp"]["verbose"]; this.publicSet.saveSettings();
-            });
-            $("#reserved-status").on("click", () => {
-                this.publicSet.settingsALL["warp"]["reserved"] = !this.publicSet.settingsALL["warp"]["reserved"]; this.publicSet.saveSettings();
-            });
-            $("#test-url-warp-status").on("click", () => {
-                this.publicSet.settingsALL["warp"]["testUrl"] = !this.publicSet.settingsALL["warp"]["testUrl"]; this.publicSet.saveSettings();
-            });
-            $("#dns-warp-value").on("input", () => {
-                this.publicSet.settingsALL["warp"]["dns"] = $("#dns-warp-value").val(); this.publicSet.saveSettings();
-            });
-        }
-        else if (core == "vibe") {
+        if (core == "vibe") {
             var that = this;
             $("#hiddify-config-vibe").on("click", async () => {
                 const response = await ipcRenderer.invoke("import-config");
@@ -606,22 +530,12 @@ class main {
         $("#lang-app-value").val(this.publicSet.settingsALL["public"]["lang"]);
         $("#theme-app-value").val(this.publicSet.settingsALL["public"]["theme"] ?? "Dark");
         this.publicSet.settingsALL["public"]["core"] == "vibe" ? $("#config-vibe-value").val(this.publicSet.settingsALL["public"]["configManual"]) : '';
-        let imgServer = ((s => { let p = s.split(",;,")[0], q = s.split("***")[1] ?? "", f = q.split("&").map(x => x.split("=")).find(x => x[0] === "flag")?.[1]; return (p.split("://")[0] === "warp" ? (f ? `${f}.svg` : "warp.webp") : (f ? `${f}.svg` : "vibe.png")).replaceAll("/", "").replaceAll("\\", ""); })(this.publicSet.settingsALL["public"]["configManual"]));
+        let imgServer = ((s => { let p = s.split(",;,")[0], q = s.split("***")[1] ?? "", f = q.split("&").map(x => x.split("=")).find(x => x[0] === "flag")?.[1]; return (f ? `${f}.svg` : "vibe.png"); }).replaceAll("/", "").replaceAll("\\", ""))(this.publicSet.settingsALL["public"]["configManual"]);
         window.setATTR("#imgServerSelected", "src", "../svgs/" + (imgServer));
         window.setHTML("#textOfServer", decodeURIComponent(this.publicSet.settingsALL["public"]["configManual"].includes("#") ? this.publicSet.settingsALL["public"]["configManual"].split("#").pop().trim().split("***")[0] : this.publicSet.settingsALL["public"]["configManual"].substring(0, 50) == "" ? this.publicSet.settingsALL["public"]["core"] + " Server" : this.publicSet.settingsALL["public"]["configManual"].substring(0, 50)));
         $("#conn-test-text").val(this.publicSet.settingsALL["public"]["testUrl"]);
-        $("#endpoint-warp-value").val(this.publicSet.settingsALL["warp"]["endpoint"]);
-        $("#selector-ip-version-warp").val(this.publicSet.settingsALL["warp"]["ipv"] ?? "IPV4");
-        $("#scan-rtt-value").val(this.publicSet.settingsALL["warp"]["scanrtt"]);
-        $("#warp-key-value").val(this.publicSet.settingsALL["warp"]["key"]);
-        $("#Gool").prop("checked", this.publicSet.settingsALL["warp"]["gool"]);
-        $("#cfon").prop("checked", this.publicSet.settingsALL["warp"]["cfon"]);
-        $("#Scan").prop("checked", this.publicSet.settingsALL["warp"]["scan"]);
         $("#freedom-link-status").prop("checked", this.publicSet.settingsALL["public"]["freedomLink"]);
         $("#quick-connect-status").prop("checked", this.publicSet.settingsALL["public"]["quickConnect"] ?? false);
-        $("#reserved-status").prop("checked", this.publicSet.settingsALL["warp"]["reserved"]);
-        $("#verbose-status").prop("checked", this.publicSet.settingsALL["warp"]["verbose"]);
-        $("#test-url-warp-status").prop("checked", this.publicSet.settingsALL["warp"]["testUrl"]);
         let thatHi = this;
 
         $(".vibe-option-state").each(function () {
@@ -659,8 +573,7 @@ class main {
                 element.prop('value', value);
             }
         });
-        $("#dns-warp-value").val(this.publicSet.settingsALL["warp"]["dns"]);
-        $("#warp, #vibe, #auto, #flex, #grid, #new".replace("#" + this.publicSet.settingsALL["public"]["core"] + ",", "")).slideUp();
+        $("#vibe, #auto, #flex, #grid, #new".replace("#" + this.publicSet.settingsALL["public"]["core"] + ",", "")).slideUp();
         $(`#${this.publicSet.settingsALL["public"]["core"]}-settings`).addClass("active");
         $(`#${this.publicSet.settingsALL["public"]["core"]}`).slideDown();
         this.addEventSect(this.publicSet.settingsALL["public"]["core"]);
@@ -1100,9 +1013,9 @@ class fgCLI extends main {
         window.LogLOG("&nbsp;&nbsp;&nbsp;start - start [core] [args]", "info", "html");
         window.LogLOG("&nbsp;&nbsp;&nbsp;disconnect - Disconnect from VPN", "info", "html");
         window.LogLOG("&nbsp;&nbsp;&nbsp;ping - Get IP information", "info", "html");
-        window.LogLOG("&nbsp;&nbsp;&nbsp;set - settings->set public core warp", "info", "html");
+        window.LogLOG("&nbsp;&nbsp;&nbsp;set - settings->set public core vibe", "info", "html");
         window.LogLOG("&nbsp;&nbsp;&nbsp;show - settings->show public core", "info", "html");
-        window.LogLOG("&nbsp;&nbsp;&nbsp;kill - only core selected mode->kill warp (/f)", "info", "html");
+        window.LogLOG("&nbsp;&nbsp;&nbsp;kill - only core selected mode->kill vibe (/f)", "info", "html");
         window.LogLOG("&nbsp;&nbsp;&nbsp;refresh - refresh(isp servers, settings, ping, ...)", "info", "html");
         window.LogLOG("&nbsp;&nbsp;&nbsp;clear - Clear logs", "info", "html");
         window.LogLOG("&nbsp;&nbsp;&nbsp;exit - Exit application", "info", "html");
@@ -1273,9 +1186,6 @@ window.showTestResultUI = async () => {
         <h4>🌀 Vibe-Core</h4>
         <p>📦 وجود فایل: <b style="color:${result.coresExist.vibe ? 'green' : 'red'}">${result.coresExist.vibe}</b></p>
         <p>▶️ اجرای واقعی:${result.runTest.vibe.success} | کد خروج: ${result.runTest.vibe.exitCode}</p>
-        <h4>🌐 Warp-Core</h4>
-        <p>📦 وجود فایل: <b style="color:${result.coresExist.warp ? 'green' : 'red'}">${result.coresExist.warp}</b></p>
-        <p>▶️ اجرای واقعی: ${result.runTest.warp.success} | کد خروج: ${result.runTest.warp.exitCode}</p>
 `;
     $("#system-check-result-value").html(html);
     $("#system-check-result").toggle();

@@ -117,7 +117,6 @@
                     <select value="auto" id="core-guard-selected">
                         <option value="auto" data-lang="auto-core-select">Automatic</option>
                         <option value="vibe">ProxyCloud</option>
-                        <option value="warp">Warp</option>
                     </select>
                 </div>
                 <div class="divider"></div>
@@ -179,7 +178,7 @@
                         <option value="Light">Light mode</option>
                         <option value="ZEN">Zen mode</option>
                         <option value="Ahura">Ahura mode</option>
-                        <option value="Warp">Warp mode</option>
+
                         <option value="NeoFlux">NeoFlux mode</option>
                         <option value="Neon">Neon mode</option>
                         <option value="CIA">CIA mode</option>
@@ -193,324 +192,222 @@
                 </div>
                 <div class="divider"></div>
             </section>
-        </section>
 
-        <h3 data-lang="auto-mode" id="auto-settings" openSection="auto">Auto mode</h3>
-        <section id="auto">
-            <b data-lang="your_isp">Your ISP</b>
-            <div id="isp-guard" class="form-control-c">
-                <select value="other" id="isp-guard-selected">
-                    <option value="other">All ISP</option>
-                    <option value="MCI">MCI (HamrahAval)</option>
-                    <option value="RIGHTEL">RighTel</option>
-                    <option value="IRANCELL">Irancell</option>
-                    <option value="PISHGAMAN">Pishgaman</option>
-                    <option value="PARSONLINE">Pars online</option>
-                    <option value="SHATEL">Shatel</option>
-                    <option value="TCI">TCI</option>
-                </select>
-            </div>
-            <div class="divider"></div>
-
-            <b data-lang="quick_connect">Quick Connect</b>
-            <div id="quick-connect">
-                <label class="switch">
-                    <input type="checkbox" id="quick-connect-status" />
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="divider"></div>
-        </section>
-
-        <h3 data-lang="warp_mode" openSection="warp">Warp mode</h3>
-        <section id="warp">
-            <b data-lang="warp_key">Warp Key</b>
-            <div id="warp-key" class="form-control-c">
-                <input type="text" class="input input-alt" placeholder="key: xxxxxxxxxxxxx" id="warp-key-value">
-                <button class="btn btn-primary" id="get-key-warp">Get Key</button>
-            </div>
-            <div class="divider"></div>
-
-            <b data-lang="dns_warp">DNS Warp</b>
-            <div id="dns-warp" class="form-control-c">
-                <input type="text" class="input input-alt" placeholder="dns: 8.8.8.8" id="dns-warp-value">
-            </div>
-            <div class="divider"></div>
-
-            <h3 data-lang="network_settings_warp" openSection="network-settings-warp">
-                Network Settings
-                Warp</h3>
-            <section id="network-settings-warp">
-                <b data-lang="ip_version" id="ip-version-label">IP Version</b>
-                <div id="ip-version">
-                    <select id="selector-ip-version-warp">
-                        <option value="IPV4">IP Version 4</option>
-                        <option value="IPV6">IP Version 6</option>
+            <h3 data-lang="auto-mode" id="auto-settings" openSection="auto">Auto mode</h3>
+            <section id="auto">
+                <b data-lang="your_isp">Your ISP</b>
+                <div id="isp-guard" class="form-control-c">
+                    <select value="other" id="isp-guard-selected">
+                        <option value="other">All ISP</option>
+                        <option value="MCI">MCI (HamrahAval)</option>
+                        <option value="RIGHTEL">RighTel</option>
+                        <option value="IRANCELL">Irancell</option>
+                        <option value="PISHGAMAN">Pishgaman</option>
+                        <option value="PARSONLINE">Pars online</option>
+                        <option value="SHATEL">Shatel</option>
+                        <option value="TCI">TCI</option>
                     </select>
                 </div>
                 <div class="divider"></div>
 
-                <b>CFON Mode</b>
-                <div id="cfon-mode">
+                <b data-lang="quick_connect">Quick Connect</b>
+                <div id="quick-connect">
                     <label class="switch">
-                        <input type="checkbox" id="cfon" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="gool_warp">Gool Warp</b>
-                <div id="gool-mode">
-                    <label class="switch">
-                        <input type="checkbox" id="Gool" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="scan_warp">Scan Warp</b>
-                <div id="scan-mode">
-                    <label class="switch">
-                        <input type="checkbox" id="Scan" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="endpoint" id="endpoint-warp-label">Endpoint</b>
-                <div id="endpoint-warp" class="form-control-c">
-                    <input placeholder="IP: 192.x.x.x" class="input input-alt" type="text" id="endpoint-warp-value">
-                    <button class="btn btn-primary" id="get-endpoint-warp">Get Endpoint</button>
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="scan_rtt" id="scan-rtt-label">Scanner RTT Limit</b>
-                <div id="scan-rtt" class="form-control-c">
-                    <input type="text" class="input input-alt" placeholder="default 1s" id="scan-rtt-value">
-                </div>
-                <div class="divider"></div>
-            </section>
-            <h3 data-lang="advanced_settings_warp" openSection="advanced-settings-warp">Advanced Settings
-                Warp</h3>
-            <section id="advanced-settings-warp">
-                <b data-lang="verbose">Verbose</b>
-                <div id="verbose">
-                    <br>
-                    <label class="switch">
-                        <input type="checkbox" id="verbose-status" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="reserved">Reserved</b>
-                <div id="reserved">
-                    <label class="switch">
-                        <input type="checkbox" id="reserved-status" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="test_url_warp">Test URL Warp</b>
-                <div id="test-url-warp">
-                    <label class="switch">
-                        <input type="checkbox" id="test-url-warp-status" />
+                        <input type="checkbox" id="quick-connect-status" />
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="divider"></div>
             </section>
-        </section>
 
-        <h3 data-lang="vibe_mode" openSection="vibe">V2ray Mode</h3>
-        <section id="vibe">
-            <b data-lang="bypass-lan-state-vibe">Bypass LAN</b>
-            <div id="bypass-lan-vibe">
-                <label class="switch">
-                    <input type="checkbox" class="vibe-option-state" optionVibe="bypass-lan"
-                        id="bypass-lan-state-vibe" />
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="divider"></div>
-
-            <b data-lang="allow-lan-state-vibe">Allow connection from LAN</b>
-            <div id="allow-lan-vibe">
-                <label class="switch">
-                    <input type="checkbox" class="vibe-option-state" optionVibe="allow-connection-from-lan"
-                        id="allow-lan-state-vibe" />
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="divider"></div>
-
-            <b data-lang="block-ads-state-vibe">Block Ads</b>
-            <div id="block-ads-vibe">
-                <label class="switch">
-                    <input type="checkbox" class="vibe-option-state" optionVibe="block-ads" id="block-ads-state-vibe" />
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="divider"></div>
-
-            <b data-lang="region">Region</b>
-            <div id="region-vibe" class="form-control-c">
-                <select id="region-vibe-value" class="vibe-option-value" optionVibe="region" value="other">
-                    <option value="ir">Iran</option>
-                    <option value="cn">China</option>
-                    <option value="ru">Russia</option>
-                    <option value="af">Afghanistan</option>
-                    <option value="id">Indonesia</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="divider"></div>
-
-            <b data-lang="remote_dns">Remote DNS</b>
-            <div id="remote-dns-vibe" class="form-control-c">
-                <input type="text" class="input input-alt vibe-option-value" placeholder="udp://1.1.1.1"
-                    id="remote-dns-vibe-value" optionVibe="remote-dns-address">
-            </div>
-            <div class="divider"></div>
-
-            <b data-lang="direct_dns">Direct DNS</b>
-            <div id="direct-dns-vibe" class="form-control-c">
-                <input type="text" class="input input-alt vibe-option-value" placeholder="8.8.8.8"
-                    id="direct-dns-vibe-value" optionVibe="direct-dns-address">
-            </div>
-            <div class="divider"></div>
-
-            <h3 data-lang="enable-fragment-state-vibe" openSection="fragment">Fragment</h3>
-            <section id="fragment">
-                <b data-lang="enable-fragment-state-vibe">TLS Fragment</b>
-                <div id="fragment-vibe">
+            <h3 data-lang="vibe_mode" openSection="vibe">V2ray Mode</h3>
+            <section id="vibe">
+                <b data-lang="bypass-lan-state-vibe">Bypass LAN</b>
+                <div id="bypass-lan-vibe">
                     <label class="switch">
-                        <input type="checkbox" class="vibe-option-state" optionVibe="tls-tricks.enable-fragment"
-                            id="fragment-state-vibe" />
+                        <input type="checkbox" class="vibe-option-state" optionVibe="bypass-lan"
+                            id="bypass-lan-state-vibe" />
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="divider"></div>
 
-                <b data-lang="fragment_size">TLS Fragment Size</b>
-                <div id="fragment-size-vibe" class="form-control-c">
-                    <input type="text" class="input input-alt vibe-option-value" placeholder="10-30"
-                        id="fragment-size-vibe-value" optionVibe="tls-tricks.fragment-size">
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="fragment_sleep">TLS Fragment Sleep</b>
-                <div id="fragment-sleep-vibe" class="form-control-c">
-                    <input type="text" class="input input-alt vibe-option-value" placeholder="2-8"
-                        id="fragment-sleep-vibe-value" optionVibe="tls-tricks.fragment-sleep">
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="mixed-sni-case">TLS Mixed SNI Case</b>
-                <div id="mixed-sni-case-vibe">
+                <b data-lang="allow-lan-state-vibe">Allow connection from LAN</b>
+                <div id="allow-lan-vibe">
                     <label class="switch">
-                        <input type="checkbox" class="vibe-option-state" optionVibe="tls-tricks.mixed-sni-case"
-                            id="mixed-sni-case-state-vibe" />
+                        <input type="checkbox" class="vibe-option-state" optionVibe="allow-connection-from-lan"
+                            id="allow-lan-state-vibe" />
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="divider"></div>
 
-                <b data-lang="enable-padding">Enable TLS Padding</b>
-                <div id="enable-padding-vibe">
+                <b data-lang="block-ads-state-vibe">Block Ads</b>
+                <div id="block-ads-vibe">
                     <label class="switch">
-                        <input type="checkbox" class="vibe-option-state" optionVibe="tls-tricks.enable-padding"
-                            id="enable-padding-state-vibe" />
+                        <input type="checkbox" class="vibe-option-state" optionVibe="block-ads" id="block-ads-state-vibe" />
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="divider"></div>
 
-                <b data-lang="padding-size">Padding Size</b>
-                <div id="padding-size-vibe" class="form-control-c">
-                    <input type="text" class="input input-alt vibe-option-value" placeholder="1-1500"
-                        id="padding-size-vibe-value" optionVibe="tls-tricks.padding-size">
+                <b data-lang="region">Region</b>
+                <div id="region-vibe" class="form-control-c">
+                    <select id="region-vibe-value" class="vibe-option-value" optionVibe="region" value="other">
+                        <option value="ir">Iran</option>
+                        <option value="cn">China</option>
+                        <option value="ru">Russia</option>
+                        <option value="af">Afghanistan</option>
+                        <option value="id">Indonesia</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="divider"></div>
+
+                <b data-lang="remote_dns">Remote DNS</b>
+                <div id="remote-dns-vibe" class="form-control-c">
+                    <input type="text" class="input input-alt vibe-option-value" placeholder="udp://1.1.1.1"
+                        id="remote-dns-vibe-value" optionVibe="remote-dns-address">
+                </div>
+                <div class="divider"></div>
+
+                <b data-lang="direct_dns">Direct DNS</b>
+                <div id="direct-dns-vibe" class="form-control-c">
+                    <input type="text" class="input input-alt vibe-option-value" placeholder="8.8.8.8"
+                        id="direct-dns-vibe-value" optionVibe="direct-dns-address">
+                </div>
+                <div class="divider"></div>
+
+                <h3 data-lang="enable-fragment-state-vibe" openSection="fragment">Fragment</h3>
+                <section id="fragment">
+                    <b data-lang="enable-fragment-state-vibe">TLS Fragment</b>
+                    <div id="fragment-vibe">
+                        <label class="switch">
+                            <input type="checkbox" class="vibe-option-state" optionVibe="tls-tricks.enable-fragment"
+                                id="fragment-state-vibe" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="divider"></div>
+
+                    <b data-lang="fragment_size">TLS Fragment Size</b>
+                    <div id="fragment-size-vibe" class="form-control-c">
+                        <input type="text" class="input input-alt vibe-option-value" placeholder="10-30"
+                            id="fragment-size-vibe-value" optionVibe="tls-tricks.fragment-size">
+                    </div>
+                    <div class="divider"></div>
+
+                    <b data-lang="fragment_sleep">TLS Fragment Sleep</b>
+                    <div id="fragment-sleep-vibe" class="form-control-c">
+                        <input type="text" class="input input-alt vibe-option-value" placeholder="2-8"
+                            id="fragment-sleep-vibe-value" optionVibe="tls-tricks.fragment-sleep">
+                    </div>
+                    <div class="divider"></div>
+
+                    <b data-lang="mixed-sni-case">TLS Mixed SNI Case</b>
+                    <div id="mixed-sni-case-vibe">
+                        <label class="switch">
+                            <input type="checkbox" class="vibe-option-state" optionVibe="tls-tricks.mixed-sni-case"
+                                id="mixed-sni-case-state-vibe" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="divider"></div>
+
+                    <b data-lang="enable-padding">Enable TLS Padding</b>
+                    <div id="enable-padding-vibe">
+                        <label class="switch">
+                            <input type="checkbox" class="vibe-option-state" optionVibe="tls-tricks.enable-padding"
+                                id="enable-padding-state-vibe" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="divider"></div>
+
+                    <b data-lang="padding-size">Padding Size</b>
+                    <div id="padding-size-vibe" class="form-control-c">
+                        <input type="text" class="input input-alt vibe-option-value" placeholder="1-1500"
+                            id="padding-size-vibe-value" optionVibe="tls-tricks.padding-size">
+                    </div>
+                    <div class="divider"></div>
+                </section>
+
+                <h3 openSection="mux-vibe">Mux</h3>
+                <section id="mux-vibe">
+                    <b data-lang="mux-enable">Mux Enable</b>
+                    <div id="mux-enable-vibe">
+                        <label class="switch">
+                            <input type="checkbox" class="vibe-option-state" optionVibe="mux.enable"
+                                id="mux-enable-state-vibe" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="divider"></div>
+
+                    <b data-lang="mux-padding">Mux Padding</b>
+                    <div id="mux-padding-vibe">
+                        <label class="switch">
+                            <input type="checkbox" class="vibe-option-state" optionVibe="mux.padding"
+                                id="mux-padding-state-vibe" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="divider"></div>
+
+                    <b data-lang="mux-max-streams">Mux Max Streams</b>
+                    <div id="mux-max-streams-vibe" class="form-control-c">
+                        <input type="number" class="input input-alt vibe-option-value" placeholder="8"
+                            id="mux-max-streams-vibe-value" optionVibe="mux.max-streams" />
+                    </div>
+                    <div class="divider"></div>
+
+                    <b data-lang="mux-protocol">Mux Protocol</b>
+                    <div id="mux-protocol-vibe" class="form-control-c">
+                        <input type="text" class="input input-alt vibe-option-value" placeholder="h2mux"
+                            id="mux-protocol-vibe-value" optionVibe="mux.protocol" />
+                    </div>
+                    <div class="divider"></div>
+                </section>
+
+                <b>Hiddify Config</b>
+                <div>
+                    <button id="hiddify-config-vibe" class="btn">Select File</button>
+                    <button id="hiddify-reset-vibe" class="btn">reset config</button>
                 </div>
                 <div class="divider"></div>
             </section>
 
-            <h3 openSection="mux-vibe">Mux</h3>
-            <section id="mux-vibe">
-                <b data-lang="mux-enable">Mux Enable</b>
-                <div id="mux-enable-vibe">
-                    <label class="switch">
-                        <input type="checkbox" class="vibe-option-state" optionVibe="mux.enable"
-                            id="mux-enable-state-vibe" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="mux-padding">Mux Padding</b>
-                <div id="mux-padding-vibe">
-                    <label class="switch">
-                        <input type="checkbox" class="vibe-option-state" optionVibe="mux.padding"
-                            id="mux-padding-state-vibe" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="mux-max-streams">Mux Max Streams</b>
-                <div id="mux-max-streams-vibe" class="form-control-c">
-                    <input type="number" class="input input-alt vibe-option-value" placeholder="8"
-                        id="mux-max-streams-vibe-value" optionVibe="mux.max-streams" />
-                </div>
-                <div class="divider"></div>
-
-                <b data-lang="mux-protocol">Mux Protocol</b>
-                <div id="mux-protocol-vibe" class="form-control-c">
-                    <input type="text" class="input input-alt vibe-option-value" placeholder="h2mux"
-                        id="mux-protocol-vibe-value" optionVibe="mux.protocol" />
-                </div>
+            <section id="flex">
+                <h3>Flex Mode</h3>
                 <div class="divider"></div>
             </section>
 
-            <b>Hiddify Config</b>
-            <div>
-                <button id="hiddify-config-vibe" class="btn">Select File</button>
-                <button id="hiddify-reset-vibe" class="btn">reset config</button>
+            <section id="grid">
+                <h3>Grid Mode</h3>
+                <div class="divider"></div>
+            </section>
+
+            <h3 data-lang="options" class="active" openSection="options-setting-warp">Options</h3>
+            <div id="options-setting-warp" style="display: flex;gap: 10px;padding: 1em 2em;box-sizing: border-box;">
+                <button id="change-background-btn" class="btn" data-lang="change_background">Change Background</button>
+                <button id="refresh-servers-btn" class="btn" data-lang="refresh_isp">Refresh ISP Servers</button>
+                <div style="width: 100%;"></div>
+                <a class="btn" href="https://github.com/code3-dev/ProxyCloud/blob/master/PRIVACY.md"
+                    data-lang="privacy_terms">Privacy
+                    Policy and Terms of Use</a>
+                <a class="btn" href="https://github.com/code3-dev/ProxyCloud-GUI" data-lang="repo_fg">Repository Freedom
+                    Guard on Github</a>
+                <button id="telegram-contact" class="btn">Telegram ProxyCloud</button>
+                <div style="width: 100%;"></div>
+                <input type="text" id="set-setting-sect" class="input input-alt" placeholder="settingALL[sect=?]"
+                    style="width: 45%;">
+                <input type="text" id="set-setting-key" class="input input-alt" placeholder="sect[Key=?]"
+                    style="width: 45%;">
+                <input type="text" id="set-setting-value" class="input input-alt" placeholder="key=value?"
+                    style="width: 45%;">
+                <button id="set-setting" class="btn" data-lang="set">Set</button>
+                <div style="width: 100%;"></div>
             </div>
-            <div class="divider"></div>
-        </section>
-
-        <section id="flex">
-            <h3>Flex Mode</h3>
-            <div class="divider"></div>
-        </section>
-
-        <section id="grid">
-            <h3>Grid Mode</h3>
-            <div class="divider"></div>
-        </section>
-
-        <h3 data-lang="options" class="active" openSection="options-setting-warp">Options</h3>
-        <div id="options-setting-warp" style="display: flex;gap: 10px;padding: 1em 2em;box-sizing: border-box;">
-            <button id="change-background-btn" class="btn" data-lang="change_background">Change Background</button>
-            <button id="refresh-servers-btn" class="btn" data-lang="refresh_isp">Refresh ISP Servers</button>
-            <div style="width: 100%;"></div>
-            <a class="btn" href="https://github.com/code3-dev/ProxyCloud/blob/master/PRIVACY.md"
-                data-lang="privacy_terms">Privacy
-                Policy and Terms of Use</a>
-            <a class="btn" href="https://github.com/code3-dev/ProxyCloud-GUI" data-lang="repo_fg">Repository Freedom
-                Guard on Github</a>
-            <button id="telegram-contact" class="btn">Telegram ProxyCloud</button>
-            <div style="width: 100%;"></div>
-            <input type="text" id="set-setting-sect" class="input input-alt" placeholder="settingALL[sect=?]"
-                style="width: 45%;">
-            <input type="text" id="set-setting-key" class="input input-alt" placeholder="sect[Key=?]"
-                style="width: 45%;">
-            <input type="text" id="set-setting-value" class="input input-alt" placeholder="key=value?"
-                style="width: 45%;">
-            <button id="set-setting" class="btn" data-lang="set">Set</button>
-            <div style="width: 100%;"></div>
-        </div>
     </div>
     <!-- #endregion -->
     <!-- #region Menu & Options -->

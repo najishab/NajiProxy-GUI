@@ -31,21 +31,13 @@ class Tools {
         if (process.platform === "linux" || process.platform === "darwin") {
             const destDir = getConfigPath();
             const vibeDestPath = path.join(destDir, "vibe", 'vibe-core');
-            const warpDestPath = path.join(destDir, "warp", 'warp-core');
-
             fs.mkdirSync(path.dirname(vibeDestPath), { recursive: true });
-            fs.mkdirSync(path.dirname(warpDestPath), { recursive: true });
 
             const vibeSourcePath = path.join(baseCorePath, "vibe", "vibe-core");
-            const warpSourcePath = path.join(baseCorePath, "warp", "warp-core");
 
             if (!fs.existsSync(vibeDestPath)) {
                 fs.copyFileSync(vibeSourcePath, vibeDestPath);
                 fs.chmodSync(vibeDestPath, 0o755);
-            }
-            if (!fs.existsSync(warpDestPath)) {
-                fs.copyFileSync(warpSourcePath, warpDestPath);
-                fs.chmodSync(warpDestPath, 0o755);
             }
             this.coresPath = destDir;
         } else {
@@ -458,22 +450,13 @@ class Tools {
         const destDir = process.platform == "win32" ? this.coresPath : getConfigPath();
 
         const vibeDestPath = path.join(destDir, "vibe", this.addExt("vibe-core"));
-        const warpDestPath = path.join(destDir, "warp", this.addExt("warp-core"));
-
         const vibeURL = `${baseURL}/vibe/${this.addExt("vibe-core")}`;
-        const warpURL = `${baseURL}/warp/${this.addExt("warp-core")}`;
 
         try {
             fs.mkdirSync(path.dirname(vibeDestPath), { recursive: true });
-            fs.mkdirSync(path.dirname(warpDestPath), { recursive: true });
 
             if (typeof window !== 'undefined' && window.showMessageUI) {
-                window.showMessageUI("📥 Downloading warp-core...");
-            }
-            await this.downloadFile(warpURL, warpDestPath);
-
-            if (typeof window !== 'undefined' && window.showMessageUI) {
-                window.showMessageUI("📥 Downloading vibe-core...", 7500);
+                window.showMessageUI("📥 Downloading vibe-core...");
             }
             await this.downloadFile(vibeURL, vibeDestPath);
 
@@ -490,22 +473,22 @@ class Tools {
     }
     async testSystemCompatibility() {
         const vibePath = path.join(this.coresPath, "vibe", this.addExt("vibe-core"));
-        const warpPath = path.join(this.coresPath, "warp", this.addExt("warp-core"));
+
         const report = {
             os: process.platform,
             arch: process.arch,
             coresPath: this.coresPath,
             coresExist: {
                 vibe: fs.existsSync(vibePath),
-                warp: fs.existsSync(warpPath)
+
             },
             execTest: {
                 vibe: { success: false, output: "", error: "" },
-                warp: { success: false, output: "", error: "" }
+
             },
             runTest: {
                 vibe: { success: false, exitCode: null, output: "", error: "" },
-                warp: { success: false, exitCode: null, output: "", error: "" }
+
             },
             dnsTest: { success: false },
             proxyTest: { success: false },
@@ -539,31 +522,7 @@ class Tools {
             }
         }
 
-        if (report.coresExist.warp) {
-            try {
-                const out = this.execSync(`"${warpPath}" --version`, { timeout: 3000 }).toString();
-                report.execTest.warp.success = true;
-                report.execTest.warp.output = out.trim();
-            } catch (err) {
-                report.execTest.warp.error = err.message;
-            }
-            try {
-                const warpProcess = spawn(warpPath, [], { timeout: 5000 });
-                let output = "", error = "";
-                warpProcess.stdout.on("data", (data) => output += data.toString());
-                warpProcess.stderr.on("data", (data) => error += data.toString());
-                const exitCode = await new Promise((resolve) => {
-                    warpProcess.on("close", (code) => resolve(code));
-                    setTimeout(() => { try { warpProcess.kill(); } catch { } }, 5000);
-                });
-                report.runTest.warp.success = true;
-                report.runTest.warp.output = output.trim();
-                report.runTest.warp.error = error.trim();
-                report.runTest.warp.exitCode = exitCode;
-            } catch (err) {
-                report.runTest.warp.error = err.message;
-            }
-        }
+
 
         try {
             this.setDNS("1.1.1.1", "8.8.8.8", report.proxyOS);
