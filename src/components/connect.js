@@ -16,6 +16,7 @@ class PublicSet {
         this.setTimeout = setTimeout;
         this.status = false;
         this.connected = false;
+        this.notificationShown = false; // Track if notification has been shown
         this.Process = {
             "vibe": null, "flex": null, "grid": null,
             "vibeAuto": null, "flexAuto": null, "gridAuto": null,
@@ -161,6 +162,16 @@ class PublicSet {
     }
 
     connectedVPN(core) {
+        // Only show notification if it hasn't been shown yet
+        if (this.notificationShown) {
+            // Update UI only without notification
+            if (typeof window !== 'undefined' && window.connectedUI) {
+                window.connectedUI();
+            }
+            return;
+        }
+        
+        this.notificationShown = true; // Mark notification as shown
         this.log(`Connected to ${core}.`);
         notify({
             title: 'Connected!',
@@ -271,7 +282,7 @@ class PublicSet {
         }
 
         this.log(config);
-        let typeConfig = "warp";
+        let typeConfig = "vibe";
 
         if (config === '') {
             this.settingsALL.public.configManual = config;
@@ -338,8 +349,12 @@ class PublicSet {
         this.saveSettings();
     }
 
-    async deleteConfig(config) {
-        this.settingsALL.public.importedServers = this.settingsALL.public.importedServers.filter(item => item !== config);
+    async deleteConfig(config, type = "imported") {
+        if (type === "imported") {
+            this.settingsALL.public.importedServers = this.settingsALL.public.importedServers.filter(item => item !== config);
+        } else if (type === "isp") {
+            this.settingsALL.public.ispServers = this.settingsALL.public.ispServers.filter(item => item !== config);
+        }
         this.saveSettings();
         if (typeof window !== 'undefined' && window.setHTML) {
             window.setHTML("#textOfServer", "Auto Server");
@@ -348,10 +363,12 @@ class PublicSet {
 
     async updateISPServers(isp = this.settingsALL.public.isp) {
         try {
+            this.log("Starting updateISPServers process");
             await this.reloadSettings();
             if (this.settingsALL.public.configAutoMode === "local") {
                 this.settingsALL.public.ispServers = this.settingsALL.public.configAuto[isp];
                 this.saveSettings();
+                this.log("Using local ISP servers");
                 return true;
             }
 
@@ -364,6 +381,7 @@ class PublicSet {
             try {
                 ispServers = response.data[isp] || [];
                 publicServers = response.data.PUBLIC || [];
+                this.log(`Parsed ISP servers - ISP count: ${ispServers.length}, Public count: ${publicServers.length}`);
             } catch (error) {
                 this.log(`Error parsing ISP server JSON: ${error}`);
                 if (typeof window !== 'undefined' && window.showMessageUI) {
@@ -374,7 +392,7 @@ class PublicSet {
 
             this.log(`ISP selected: ${isp}`);
             this.settingsALL.public.ispServers = [...ispServers, ...publicServers];
-            this.log(`ISP servers updated: ${JSON.stringify(this.settingsALL.public.ispServers)}`);
+            this.log(`ISP servers updated: ${this.settingsALL.public.ispServers.length} servers loaded`);
 
             if (this.settingsALL.public.ispServers.length === 0) {
                 if (typeof window !== 'undefined' && window.showMessageUI) {
@@ -384,13 +402,16 @@ class PublicSet {
                 return false;
             }
             this.saveSettings();
+            this.log("ISP servers updated successfully");
             return true;
         } catch (error) {
-            this.log(`Network or server error updating ISP servers: ${error}`);
+            this.log(`Network or server error updating ISP servers: ${error.message}`);
             if (typeof window !== 'undefined' && window.showMessageUI) {
                 window.showMessageUI(this.settingsALL.lang.message_repo_access_error);
             }
+            // Even if there's a network error, try to use existing servers
             if (this.settingsALL.public.ispServers && this.settingsALL.public.ispServers.length > 0) {
+                this.log("Using existing ISP servers due to network error");
                 return true;
             } else {
                 this.log("Backup ISP servers are empty!");
@@ -438,7 +459,7 @@ class PublicSet {
                     this.log(`${processName}.exe killed successfully.`);
                 }
             });
-            exec("taskkill /F /IM reg.exe", (error) => {
+            exec("taskkill /F /IM reg.exe", {windowsHide: true}, (error) => {
                 if (error) {
                     this.log(`Error killing reg.exe: ${error.message}`);
                 } else {
@@ -559,6 +580,18 @@ class PublicSet {
             window.startNewUser();
             this.settingsALL.public.newUser = false;
             this.saveSettings();
+        } else {
+            // For existing users, automatically update servers and ping on startup
+            // Add a small delay to ensure UI is ready
+            setTimeout(() => {
+                this.updateISPServers(this.settingsALL.public.isp).then(() => {
+                    if (typeof window !== 'undefined' && window.setSettings) {
+                        window.setSettings();
+                    }
+                }).catch(error => {
+                    this.log(`Error updating ISP servers on startup: ${error.message}`);
+                });
+            }, 500);
         }
     }
 }
@@ -566,21 +599,20 @@ class PublicSet {
 class ConnectAuto extends PublicSet {
     constructor() {
         super();
-        this.processWarp = null;
         this.processVibe = null;
         this.processFlex = null;
         this.processGrid = null;
         this.processGridSetup = null;
-        this.argsWarp = [];
         this.argsVibe = [];
         this.argsFlex = [];
         this.argsGrid = [];
         this.argsGridSetup = [];
+        // Initialize notification flag
+        this.notificationShown = false;
         this.settings = {
             "flex": {},
             "grid": {},
             "vibe": {},
-            "warp": {},
             "public": { ...this.settingsALL.public }
         };
     }
@@ -590,6 +622,7 @@ class ConnectAuto extends PublicSet {
         await this.reloadSettings();
         this.settings.public = { ...this.settingsALL.public };
 
+        // Always update ISP servers before attempting to connect
         if (!(await this.updateISPServers(this.settingsALL.public.isp))) {
             this.log("Auto-connect failed: Could not update ISP servers.");
             this.notConnected("Auto");
@@ -608,9 +641,11 @@ class ConnectAuto extends PublicSet {
 
         this.log(`Available ISP servers for auto-connect: ${JSON.stringify(this.settingsALL.public.ispServers)}`);
 
+        let connectionEstablished = false;
         for (const server of this.settingsALL.public.ispServers) {
-            if (this.connected) {
+            if (this.connected && !connectionEstablished) {
                 this.connectedVPN("auto");
+                connectionEstablished = true;
                 this.settingsALL.public.quickConnectC = server;
                 if (this.settingsALL.public.freedomLink) {
                     this.Tools.donateCONFIG(server);
@@ -761,6 +796,8 @@ class ConnectAuto extends PublicSet {
         }
         this.status = false;
         this.connected = false;
+        // Reset notification flag on disconnect
+        this.notificationShown = false;
         if (typeof window !== 'undefined' && window.reloadPing) {
             window.reloadPing();
         }
@@ -770,8 +807,16 @@ class ConnectAuto extends PublicSet {
         this.log(`Vibe Output: ${data}`);
         if (data.includes("CORE STARTED")) {
             this.reloadSettings();
-            this.connectedVPN("auto");
             this.connected = true;
+            // Only show notification if not already shown
+            if (!this.notificationShown) {
+                this.connectedVPN("auto");
+            } else {
+                // Just update UI without notification
+                if (typeof window !== 'undefined' && window.connectedUI) {
+                    window.connectedUI();
+                }
+            }
         }
     }
 
@@ -789,6 +834,8 @@ class Connect extends PublicSet {
         this.argsFlex = [];
         this.argsGrid = [];
         this.argsGridSetup = [];
+        // Initialize notification flag
+        this.notificationShown = false;
     }
 
     importAuto() {
@@ -916,6 +963,9 @@ class Connect extends PublicSet {
         } catch (error) {
             this.log(`[VPN] Error in killVPN: ${error}`);
         }
+        // Reset notification flag on disconnect
+        this.notificationShown = false;
+        this.connected = false;
         if (typeof window !== 'undefined' && window.reloadPing) {
             window.reloadPing();
         }
@@ -930,8 +980,16 @@ class Connect extends PublicSet {
             if (this.settingsALL.public.freedomLink) {
                 this.Tools.donateCONFIG(this.settingsALL.vibe.config);
             }
-            this.connectedVPN("vibe");
             this.connected = true;
+            // Only show notification if not already shown
+            if (!this.notificationShown) {
+                this.connectedVPN("vibe");
+            } else {
+                // Just update UI without notification
+                if (typeof window !== 'undefined' && window.connectedUI) {
+                    window.connectedUI();
+                }
+            }
         }
     }
 }

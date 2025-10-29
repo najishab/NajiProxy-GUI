@@ -344,12 +344,17 @@ ipcMain.handle("import-config", async () => {
 // #endregion
 // #region Quit
 app.on('before-quit', () => {
-  exec("taskkill /IM " + "vibe-core.exe" + " /F");
-  exec('reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /F');
+    // Notify renderer process to clean up resources
+    if (mainWindow) {
+        mainWindow.webContents.send('app-will-quit');
+    }
+    
+    exec("taskkill /IM " + "vibe-core.exe" + " /F", {windowsHide: true});
+    exec('reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /F', {windowsHide: true});
 
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
 });
 // #endregion Quit
 // #region other

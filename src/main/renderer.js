@@ -5,7 +5,7 @@ const $ = require('jquery');
 require("jquery.easing");
 const { exec, execFile, spawn } = require('child_process');
 window.$ = $;
-const vesrionApp = "1.6.0";
+const vesrionApp = "1.7.0";
 let LOGS = [];
 // #endregion
 // #region components
@@ -116,20 +116,125 @@ class main {
         this.axios = require("axios");
         this.publicSet = new PublicSet();
         this.Tools = new Tools();
+        // Flag to track if event listener has been attached
+        this.addServerBtnListenerAttached = false;
+        // Timer for periodic server updates
+        this.serverUpdateInterval = null;
+        // Flag to prevent concurrent updates
+        this.isUpdatingServers = false;
     };
+    
+    // Clean up resources when the app is closing
+    cleanup() {
+        if (this.serverUpdateInterval) {
+            clearInterval(this.serverUpdateInterval);
+            this.serverUpdateInterval = null;
+        }
+        // Reset updating flag
+        this.isUpdatingServers = false;
+    }
     init = async () => {
         this.publicSet.log("App Started");
         this.addEvents();
         this.setSettings();
-        this.reloadServers();
-        this.setPingBox();
+        this.publicSet.log("Loading servers...");
+        try {
+            // Automatically update subscriptions and load servers on startup
+            await this.publicSet.updateISPServers(); // Update ISP servers first
+            await this.reloadServers(); // Wait for servers to load
+            this.publicSet.log("Servers loaded successfully");
+        } catch (error) {
+            this.publicSet.log(`Error loading servers: ${error.message}`);
+            console.error("Error loading servers:", error);
+            // Retry once more after a short delay
+            try {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                await this.publicSet.updateISPServers();
+                await this.reloadServers();
+                this.publicSet.log("Servers loaded successfully on retry");
+            } catch (retryError) {
+                this.publicSet.log(`Retry failed: ${retryError.message}`);
+                console.error("Retry failed:", retryError);
+            }
+        }
+        // Automatically get ping on startup with a small delay to ensure UI is ready
+        setTimeout(() => {
+            this.setPingBox();
+        }, 1000);
         this.publicSet.startINIT();
         this.checkUPDATE();
         this.loadLang();
         this.loadTheme();
         this.initCompo();
         this.initApp();
+        
+        // Ensure server selector is properly initialized
+        this.initializeServerSelector();
+        
+        // Set up periodic server updates (every 30 minutes)
+        this.setupPeriodicUpdates();
+        
+        // Log that servers have been loaded
+        this.publicSet.log("App initialization completed");
+        
+        // Notify user that servers are loaded
+        window.showMessageUI("سرورها بارگذاری شدند", 2000);
     };
+    
+    // Set up periodic updates for servers
+    setupPeriodicUpdates() {
+        // Clear any existing interval
+        if (this.serverUpdateInterval) {
+            clearInterval(this.serverUpdateInterval);
+        }
+        
+        // Set up a new interval to update servers every 30 minutes
+        this.serverUpdateInterval = setInterval(async () => {
+            // Prevent concurrent updates
+            if (this.isUpdatingServers) {
+                this.publicSet.log("Skipping periodic update - already updating");
+                return;
+            }
+            
+            try {
+                this.isUpdatingServers = true;
+                this.publicSet.log("Performing periodic server update");
+                await this.publicSet.updateISPServers();
+                await this.reloadServers();
+                this.setPingBox();
+                this.publicSet.log("Periodic server update completed");
+            } catch (error) {
+                this.publicSet.log(`Error in periodic server update: ${error.message}`);
+                console.error("Error in periodic server update:", error);
+            } finally {
+                this.isUpdatingServers = false;
+            }
+        }, 30 * 60 * 1000); // 30 minutes in milliseconds
+    }
+    
+    // Initialize server selector to ensure it's properly set up
+    initializeServerSelector() {
+        this.publicSet.log("Initializing server selector");
+        // Make sure the add server button event is attached
+        if (!this.addServerBtnListenerAttached) {
+            $("#add-server-btn").on("click", () => {
+                let settingApp = $("#setting-app");
+                settingApp.show().animate({ right: "0px" }, 0);
+                $("#config-value").focus();
+            });
+            this.addServerBtnListenerAttached = true;
+            this.publicSet.log("Add server button event listener attached");
+        } else {
+            this.publicSet.log("Add server button event listener already attached");
+        }
+    }
+    
+    // Show server selector modal
+    showServerSelector() {
+        $("#box-select-server").show();
+        // Ensure servers are loaded when the box is opened
+        this.reloadServers();
+    }
     connectFG() {
         $("#ChangeStatus").removeClass("connected");
         $("#ChangeStatus").addClass("connecting");
@@ -248,6 +353,11 @@ class main {
         this.publicSet.reloadSettings();
         if (this.publicSet.settingsALL["public"]["auto_conn_after_runs"]) {
             this.connectFG();
+        } else {
+            // Even if auto-connect is disabled, we still want to update servers and ping
+            // This ensures the server list is populated and ping is shown
+            await this.reloadServers();
+            this.setPingBox();
         };
     }
     addEvents() {
@@ -289,6 +399,11 @@ class main {
         });
         $("#box-select-server-mini, #close-box-select-server").on("click", async () => {
             $("#box-select-server").toggle();
+            // When opening the server selection box, ensure servers are up to date
+            if ($("#box-select-server").is(":visible")) {
+                await this.reloadServers();
+                window.showMessageUI(this.publicSet.settingsALL["lang"]["refreshed_isp_servers"]);
+            }
         });
         $("#menu-exit-app").on('click', () => {
             ipcRenderer.send("exit-app");
@@ -330,13 +445,23 @@ class main {
         $("#close-sys-check").on("click", () => {
             $("#system-check-result").toggle();
         })
+        
+        // Listen for app-will-quit event to clean up resources
+        ipcRenderer.on('app-will-quit', () => {
+            this.cleanup();
+        });
+        
         process.nextTick(() => this.addEventsSetting());
     };
     addEventsSetting() {
         // Add Event for settings
         $("#core-guard-selected").on('change', () => {
             this.publicSet.settingsALL["public"]["core"] = $("#core-guard-selected").val(); this.publicSet.saveSettings();
-            $("#vibe, #auto, #flex, #grid, #new".replace("#" + this.publicSet.settingsALL["public"]["core"] + ",", "")).slideUp();
+            // Fix: Ensure the string is valid before calling replace
+            const selectorString = "#vibe, #auto, #flex, #grid, #new";
+            const coreValue = this.publicSet.settingsALL["public"]["core"] || "";
+            const slideUpSelector = selectorString.replace("#" + coreValue + ",", "");
+            $(slideUpSelector).slideUp();
             $(`#${this.publicSet.settingsALL["public"]["core"]}-settings`).slideDown().addClass("active");
             $(`#${this.publicSet.settingsALL["public"]["core"]}`).slideDown();
 
@@ -530,7 +655,9 @@ class main {
         $("#lang-app-value").val(this.publicSet.settingsALL["public"]["lang"]);
         $("#theme-app-value").val(this.publicSet.settingsALL["public"]["theme"] ?? "Dark");
         this.publicSet.settingsALL["public"]["core"] == "vibe" ? $("#config-vibe-value").val(this.publicSet.settingsALL["public"]["configManual"]) : '';
-        let imgServer = ((s => { let p = s.split(",;,")[0], q = s.split("***")[1] ?? "", f = q.split("&").map(x => x.split("=")).find(x => x[0] === "flag")?.[1]; return (f ? `${f}.svg` : "vibe.png"); }).replaceAll("/", "").replaceAll("\\", ""))(this.publicSet.settingsALL["public"]["configManual"]);
+        // Fix: Ensure the result is a string before calling replace
+        let imgServerResult = ((s => { let p = s.split(",;,")[0], q = s.split("***")[1] ?? "", f = q.split("&").map(x => x.split("=")).find(x => x[0] === "flag")?.[1]; return (f ? `${f}.svg` : "vibe.png"); })(this.publicSet.settingsALL["public"]["configManual"]));
+        let imgServer = (typeof imgServerResult === 'string') ? imgServerResult.replace(/\//g, "").replace(/\\/g, "") : "vibe.png";
         window.setATTR("#imgServerSelected", "src", "../svgs/" + (imgServer));
         window.setHTML("#textOfServer", decodeURIComponent(this.publicSet.settingsALL["public"]["configManual"].includes("#") ? this.publicSet.settingsALL["public"]["configManual"].split("#").pop().trim().split("***")[0] : this.publicSet.settingsALL["public"]["configManual"].substring(0, 50) == "" ? this.publicSet.settingsALL["public"]["core"] + " Server" : this.publicSet.settingsALL["public"]["configManual"].substring(0, 50)));
         $("#conn-test-text").val(this.publicSet.settingsALL["public"]["testUrl"]);
@@ -573,7 +700,10 @@ class main {
                 element.prop('value', value);
             }
         });
-        $("#vibe, #auto, #flex, #grid, #new".replace("#" + this.publicSet.settingsALL["public"]["core"] + ",", "")).slideUp();
+        const selectorString = "#vibe, #auto, #flex, #grid, #new";
+        const coreValue = this.publicSet.settingsALL["public"]["core"] || "";
+        const slideUpSelector = selectorString.replace("#" + coreValue + ",", "");
+        $(slideUpSelector).slideUp();
         $(`#${this.publicSet.settingsALL["public"]["core"]}-settings`).addClass("active");
         $(`#${this.publicSet.settingsALL["public"]["core"]}`).slideDown();
         this.addEventSect(this.publicSet.settingsALL["public"]["core"]);
@@ -601,66 +731,130 @@ class main {
         });
     };
     async reloadServers() {
-        // Reloads server list, updates UI, and manages server selection and context menu interactions.
-        this.publicSet.reloadSettings();
-        await this.publicSet.updateISPServers();
+        // Prevent concurrent updates
+        if (this.isUpdatingServers) {
+            this.publicSet.log("Skipping server reload - already updating");
+            return;
+        }
+        
+        try {
+            this.isUpdatingServers = true;
+            this.publicSet.log("Starting reloadServers process");
+            this.publicSet.reloadSettings();
+            this.publicSet.log("Settings reloaded, updating ISP servers");
+            const updateResult = await this.publicSet.updateISPServers();
+            this.publicSet.log(`ISP servers update result: ${updateResult}`);
 
-        let ispServers = [...this.publicSet.settingsALL["public"]["ispServers"]];
-        let importedServers = [...this.publicSet.settingsALL["public"]["importedServers"]];
+            let ispServers = [...this.publicSet.settingsALL["public"]["ispServers"]];
+            let importedServers = [...this.publicSet.settingsALL["public"]["importedServers"]];
+            
+            this.publicSet.log(`ISP servers count: ${ispServers.length}, Imported servers count: ${importedServers.length}`);
 
-        let box = document.getElementById("box-select-servers");
-        $("#box-select-servers").html("");
+            let box = document.getElementById("box-select-servers");
+            if (!box) {
+                this.publicSet.log("Error: box-select-servers element not found");
+                // Try to show the box first
+                $("#box-select-server").show();
+                box = document.getElementById("box-select-servers");
+                if (!box) {
+                    this.publicSet.log("Error: box-select-servers element still not found after showing box");
+                    return;
+                }
+            }
+            
+            this.publicSet.log(`Box element found, current child count: ${box.children.length}`);
+            $("#box-select-servers").html("");
+            this.publicSet.log("Box content cleared");
 
-        $("#add-server-btn").on("click", () => {
-            let settingApp = $("#setting-app");
-            settingApp.show().animate({ right: "0px" }, 0);
-            $("#config-value").focus();
-        });
+            // Only attach the event listener once
+            if (!this.addServerBtnListenerAttached) {
+                $("#add-server-btn").on("click", () => {
+                    let settingApp = $("#setting-app");
+                    settingApp.show().animate({ right: "0px" }, 0);
+                    $("#config-value").focus();
+                });
+                this.addServerBtnListenerAttached = true;
+                this.publicSet.log("Add server button event listener attached");
+            }
 
-        await this.createServerList("Your Servers", importedServers, box, "imported");
-        await this.createServerList("ISP Servers", ispServers, box, "isp");
-        box.addEventListener("click", async (event) => {
-            let target = event.target.closest(".country-option");
-            if (!target) return;
+            this.publicSet.log("Creating server lists");
+            await this.createServerList("Your Servers", importedServers, box, "imported");
+            await this.createServerList("ISP Servers", ispServers, box, "isp");
+            
+            this.publicSet.log(`After creating lists, box child count: ${box.children.length}`);
+            
+            // Remove existing event listeners to prevent duplicates
+            if (this.serverBoxClickHandler) {
+                box.removeEventListener("click", this.serverBoxClickHandler);
+            }
+            
+            if (this.serverBoxContextMenuHandler) {
+                box.removeEventListener("contextmenu", this.serverBoxContextMenuHandler);
+            }
+            
+            // Define event handlers
+            this.serverBoxClickHandler = async (event) => {
+                let target = event.target.closest(".country-option");
+                if (!target) return;
 
-            let serverType = target.getAttribute("data-type");
-            let serverIndex = target.getAttribute("data-index");
-            let server = target.getAttribute("data-server");
+                let serverType = target.getAttribute("data-type");
+                let serverIndex = target.getAttribute("data-index");
+                let server = target.getAttribute("data-server");
 
-            if (!server || serverIndex === null) return;
+                if (!server || serverIndex === null) return;
 
-            event.preventDefault();
+                event.preventDefault();
 
-            document.querySelectorAll(".country-option").forEach(el => {
-                el.style.backgroundColor = "";
-                el.id = "";
-            });
+                document.querySelectorAll(".country-option").forEach(el => {
+                    el.style.backgroundColor = "";
+                    el.id = "";
+                });
 
-            target.id = "selected-server";
+                target.id = "selected-server";
 
-            this.publicSet.log(`🔵 Clicked on server: ${server} | Type: ${serverType}`);
+                this.publicSet.log(`🔵 Clicked on server: ${server} | Type: ${serverType}`);
 
-            await this.publicSet.importConfig(server);
-            this.setSettings();
-            this.reloadServers();
-        });
+                await this.publicSet.importConfig(server);
+                this.setSettings();
+                await this.reloadServers(); // Wait for reload to complete
+            };
+            
+            this.serverBoxContextMenuHandler = (event) => {
+                let target = event.target.closest(".country-option");
+                if (!target) return;
 
+                let serverType = target.getAttribute("data-type");
+                let serverIndex = target.getAttribute("data-index");
+                let server = target.getAttribute("data-server");
 
-        box.addEventListener("contextmenu", (event) => {
-            let target = event.target.closest(".country-option");
-            if (!target) return;
+                if (!server || serverIndex === null) return;
 
-            let serverType = target.getAttribute("data-type");
-            let serverIndex = target.getAttribute("data-index");
-            let server = target.getAttribute("data-server");
+                event.preventDefault();
+                this.showContextMenuServer(event, server, serverType, serverIndex);
+            };
 
-            if (!server || serverIndex === null) return;
-
-            event.preventDefault();
-            this.showContextMenuServer(event, server, serverType, serverIndex);
-        });
+            // Attach event listeners
+            box.addEventListener("click", this.serverBoxClickHandler);
+            box.addEventListener("contextmenu", this.serverBoxContextMenuHandler);
+            
+            this.publicSet.log(`Server lists updated - Imported: ${importedServers.length}, ISP: ${ispServers.length}`);
+            
+            // Automatically update ping after servers are loaded
+            setTimeout(() => {
+                this.setPingBox();
+            }, 500);
+        } catch (error) {
+            this.publicSet.log(`Error in reloadServers: ${error.message}`);
+            console.error("Error in reloadServers:", error);
+            // Show error message to user
+            window.showMessageUI("Error loading servers: " + error.message);
+            throw error;
+        } finally {
+            this.isUpdatingServers = false;
+        }
     };
     async createServerList(title, servers, container, type) { // Generates and appends a list of servers to the provided container.
+        this.publicSet.log(`Creating server list: ${title} with ${servers.length} servers`);
         container.innerHTML += `<h2 style='margin:0.7em;'>${title}</h2>`;
 
         servers.forEach((server, index) => {
@@ -671,7 +865,10 @@ class main {
                 pre.split("://")[0] === "warp" ? (flag ? `${flag}.svg` : "warp.webp") :
                     true ? (flag ? `${flag}.svg` : "vibe.png") :
                         "vibe.png";
-            imgServer = imgServer.replaceAll("/", "").replaceAll("\\", "");
+            // Ensure imgServer is a string before calling replace
+            if (typeof imgServer === 'string') {
+                imgServer = imgServer.replace(/\//g, "").replace(/\\/g, "");
+            }
             server = decodeURIComponent(server.replace("vibe,;,", "").replace(",;,", "://"));
             let name = server.includes("#") ? server.split("#").pop().trim().split("***")[0] : server.substring(0, 50);
 
@@ -687,6 +884,8 @@ class main {
             }
             container.appendChild(div);
         });
+        
+        this.publicSet.log(`Finished creating server list: ${title} with ${container.children.length} elements`);
     };
     showContextMenuServer(event, server, type, index) {//  Displays a custom right-click context menu for server options.
         let existingMenu = document.getElementById("server-context-menu");
@@ -698,56 +897,72 @@ class main {
         menu.style.top = `${event.clientY}px`;
         menu.style.left = `${event.clientX}px`;
 
-        menu.innerHTML = (type != "isp" ? `
+        menu.innerHTML = `
             <button class="edit-server"><i class='bx bxs-pencil'></i> ویرایش</button>
             <button class="delete-server"><i class='bx bxs-trash'></i> حذف</button>
-            `: `<span style="padding: 0.5em;">برای ویرایش ابتدا با ضربه زدن بر روی سرور آن را اضافه کنید</span>`) + `
             <button class="share-server"><i class='bx bxs-share'></i> اشتراک‌ گذاری</button>
         `;
-        if (type != "isp") {
-            menu.querySelector(".edit-server").addEventListener("click", async () => {
-                let newServer = await window.promptMulti({
-                    title: this.publicSet.settingsALL["lang"]["edit_config"],
-                    fields: [
-                        { label: this.publicSet.settingsALL["lang"]["config_name"], defaultValue: this.publicSet.settingsALL["public"][type == "isp" ? "ispServers" : "importedServers"][index].split("#")[1] == "" ? "no name" : this.publicSet.settingsALL["public"][type == "isp" ? "ispServers" : "importedServers"][index].split("#")[1], name: "name" },
-                        { label: this.publicSet.settingsALL["lang"]["config"], defaultValue: this.publicSet.settingsALL["public"][type == "isp" ? "ispServers" : "importedServers"][index].split("#")[0], name: "server" }
-                    ],
-                    returnName: true
-                });
-                if (newServer) {
-                    newServer = newServer["server"] + "#" + newServer["name"];
-                    if (type === "imported") {
-                        this.publicSet.settingsALL["public"]["importedServers"][index] = newServer;
-                    } else if (type === "isp") {
-                        this.publicSet.settingsALL["public"]["ispServers"][index] = newServer;
-                    }
 
-                    await this.publicSet.saveSettings();
-                    this.setSettings();
-                    this.reloadServers();
-                }
-                menu.remove();
+        // Edit server functionality
+        menu.querySelector(".edit-server").addEventListener("click", async () => {
+            let newServer = await window.promptMulti({
+                title: this.publicSet.settingsALL["lang"]["edit_config"],
+                fields: [
+                    { label: this.publicSet.settingsALL["lang"]["config_name"], defaultValue: this.publicSet.settingsALL["public"][type == "isp" ? "ispServers" : "importedServers"][index].split("#")[1] == "" ? "no name" : this.publicSet.settingsALL["public"][type == "isp" ? "ispServers" : "importedServers"][index].split("#")[1], name: "name" },
+                    { label: this.publicSet.settingsALL["lang"]["config"], defaultValue: this.publicSet.settingsALL["public"][type == "isp" ? "ispServers" : "importedServers"][index].split("#")[0], name: "server" }
+                ],
+                returnName: true
             });
-
-            menu.querySelector(".delete-server").addEventListener("click", async () => {
-                const userConfirmed = await window.confirm("آیا مطمئن هستید که می‌خواهید این کانفیگ را حذف کنید؟");
-                if (!userConfirmed) return;
-
-                try {
-                    await this.publicSet.deleteConfig(server);
-                    await this.publicSet.reloadSettings();
-                    this.publicSet.settingsALL["public"]["core"] = "auto";
-                    this.publicSet.settingsALL["public"]["configManual"] = "";
-                    this.publicSet.saveSettings();
-                    this.setSettings();
-                    this.reloadServers();
-                } catch (error) {
-                    console.error("خطا:", error);
+            if (newServer) {
+                newServer = newServer["server"] + "#" + newServer["name"];
+                if (type === "imported") {
+                    this.publicSet.settingsALL["public"]["importedServers"][index] = newServer;
+                } else if (type === "isp") {
+                    this.publicSet.settingsALL["public"]["ispServers"][index] = newServer;
                 }
 
+                await this.publicSet.saveSettings();
+                this.setSettings();
+                this.reloadServers();
+            }
+            menu.remove();
+        });
+
+        // Delete server functionality for both imported and ISP servers
+        menu.querySelector(".delete-server").addEventListener("click", async () => {
+            const userConfirmed = await window.confirm("آیا مطمئن هستید که می‌خواهید این کانفیگ را حذف کنید؟");
+            if (!userConfirmed) {
                 menu.remove();
-            });
-        }
+                return;
+            }
+
+            try {
+                this.publicSet.log(`Deleting server: ${server} | Type: ${type}`);
+                await this.publicSet.deleteConfig(server, type);
+                await this.publicSet.reloadSettings();
+                this.publicSet.settingsALL["public"]["core"] = "auto";
+                this.publicSet.settingsALL["public"]["configManual"] = "";
+                this.publicSet.saveSettings();
+                this.setSettings();
+                
+                // Refresh ISP servers from remote source and update UI
+                this.publicSet.log("Refreshing ISP servers from remote source");
+                await this.publicSet.updateISPServers();
+                this.publicSet.log("Reloading server lists in UI");
+                await this.reloadServers();
+                
+                // Show a message to the user
+                window.showMessageUI("سرور با موفقیت حذف شد و لیست سرورها به‌روزرسانی شد", 3000);
+                this.publicSet.log("Server deleted and UI updated successfully");
+            } catch (error) {
+                console.error("خطا:", error);
+                window.showMessageUI("خطا در حذف سرور: " + error.message, 3000);
+                this.publicSet.log(`Error deleting server: ${error.message}`);
+            }
+
+            menu.remove();
+        });
+
         menu.querySelector(".share-server").addEventListener("click", async () => {
             try {
                 const serverConfig = server.replace(",;,", "://");
@@ -769,38 +984,52 @@ class main {
         return `<img src="../svgs/${country.toLowerCase()}.svg" style="width: 20px; height: 20px;border-radius:0px;"> ${country}`;
     };
     async setPingBox() {// Update UI connected-info
-        $("#connected-ping").html(`Pinging...`);
-        $("#ip-ping").html(`Pinging...`);
-        const connectedInfo = await this.connect.getIP_Ping();
-        const countryEmoji = connectedInfo.country ? ` ${this.getEmojiCountry(connectedInfo.country)}` : "🌍 Unknown";
-        const isConnected = !connectedInfo.filternet;
+        try {
+            $("#connected-ping").html(`Pinging...`);
+            $("#ip-ping").html(`Pinging...`);
+            const connectedInfo = await this.connect.getIP_Ping();
+            const countryEmoji = connectedInfo.country ? ` ${this.getEmojiCountry(connectedInfo.country)}` : "🌍 Unknown";
+            const isConnected = !connectedInfo.filternet;
 
-        if (this.publicSet.connected) {
-            $(".connection, #ip-ping").addClass("connected");
-            $("#connected-country").html(`Country: <b style="display:flex;gap:8px;">${countryEmoji}</b>`);
-            $("#connected-ping").html(`Ping: <b>${connectedInfo.ping || "N/A"} ms</b>`);
-            $("#connected-status").html(`Status: <b>${connectedInfo.ping ? "Connected" : "Disconnected"}</b>`);
-            $("#connected-bypass").html(`Bypass: <b>${isConnected ? "On" : "Off"}</b>`);
-            this.publicSet.settingsALL.public.core == "warp" ? $("#share-connection").hide() :
-                $("#share-connection").on("click", async () => {
-                    await this.publicSet.reloadSettings();
-                    $("#text-box-notif").html(this.publicSet.settingsALL["lang"]["share-conn"] ?? "You can share your current connected config using the buttons below");
-                    $("#box-notif").css("display", "flex");
-                    $("#href-box-notif").on("click", () => {
-                        navigator.clipboard.writeText(this.publicSet.settingsALL["public"]["quickConnectC"].replace("vibe,;,", "").replace(",;,", "://"));
-                        window.showMessageUI(this.publicSet.settingsALL["lang"]["copied"])
-                    });
-                    $("#href-box-notif").html(this.publicSet.settingsALL["lang"]["copy"] ?? "Copy");
-                    $("#close-box-notif").html(this.publicSet.settingsALL["lang"]["cancel"]);
+            if (this.publicSet.connected) {
+                $(".connection, #ip-ping").addClass("connected");
+                $("#connected-country").html(`Country: <b style="display:flex;gap:8px;">${countryEmoji}</b>`);
+                $("#connected-ping").html(`Ping: <b>${connectedInfo.ping || "N/A"} ms</b>`);
+                $("#connected-status").html(`Status: <b>${connectedInfo.ping ? "Connected" : "Disconnected"}</b>`);
+                $("#connected-bypass").html(`Bypass: <b>${isConnected ? "On" : "Off"}</b>`);
+                this.publicSet.settingsALL.public.core == "warp" ? $("#share-connection").hide() :
+                    $("#share-connection").on("click", async () => {
+                        await this.publicSet.reloadSettings();
+                        $("#text-box-notif").html(this.publicSet.settingsALL["lang"]["share-conn"] ?? "You can share your current connected config using the buttons below");
+                        $("#box-notif").css("display", "flex");
+                        
+                        // Remove any existing event handlers
+                        $("#href-box-notif").off("click");
+                        $("#close-box-notif").off("click");
+                        
+                        $("#href-box-notif").on("click", (e) => {
+                            e.preventDefault();
+                            navigator.clipboard.writeText(this.publicSet.settingsALL["public"]["quickConnectC"].replace("vibe,;,", "").replace(",;,", "://"));
+                            window.showMessageUI(this.publicSet.settingsALL["lang"]["copied"])
+                            $("#box-notif").css("display", "none");
+                        });
+                        $("#href-box-notif").html(this.publicSet.settingsALL["lang"]["copy"] ?? "Copy");
+                        $("#close-box-notif").html(this.publicSet.settingsALL["lang"]["cancel"]);
 
-                    $("#href-box-notif, #close-box-notif").on("click", () => {
-                        $("#box-notif").css("display", "none");
+                        $("#close-box-notif").on("click", (e) => {
+                            e.preventDefault();
+                            $("#box-notif").css("display", "none");
+                        });
                     });
-                });
-        } else {
-            $("#ip-ping").attr("style", connectedInfo.ping > 1000 ? "color:red;" : "color:green;");
-            $("#ip-ping").html(`${connectedInfo.ping}ms`);
-            $(".connection, #ip-ping").removeClass("connected");
+            } else {
+                $("#ip-ping").attr("style", connectedInfo.ping > 1000 ? "color:red;" : "color:green;");
+                $("#ip-ping").html(`${connectedInfo.ping}ms`);
+                $(".connection, #ip-ping").removeClass("connected");
+            }
+        } catch (error) {
+            console.error("Error in setPingBox:", error);
+            $("#connected-ping").html(`Ping: <b>Error</b>`);
+            $("#ip-ping").html(`Error`);
         }
     };
     KILLALLCORES(core) { // Terminates a process with the given core name on both Windows and Unix-based systems.
@@ -1023,9 +1252,20 @@ class fgCLI extends main {
 };
 // #endregion
 const mainSTA = new main();
-mainSTA.init();
+
+// Wait for DOM to be fully loaded before initializing
+$(document).ready(async () => {
+    try {
+        await mainSTA.init();
+    } catch (error) {
+        console.error("Error initializing app:", error);
+        window.showMessageUI("Error initializing application: " + error.message);
+    }
+});
+
 const fgCLI_STA = new fgCLI();
 fgCLI_STA.init();
+// #endregion
 // #region end components
 window.messageQueue = [];
 window.isMessageShowing = false;
@@ -1086,12 +1326,29 @@ window.showMessageUI = (message, duration = 3000) => {
     };
 };
 window.showModal = (mess = "", link = "", btnOpenLinkHTML = "Open it", btnCloseModalHTML = "Not now") => {
-    $("#text-box-notif").html(mess.replaceAll("\n", "<br />"));
+    $("#text-box-notif").html(mess.replace(/\n/g, "<br />"));
     $("#box-notif").css("display", "flex");
     $("#href-box-notif").attr("href", link);
     $("#href-box-notif").html(btnOpenLinkHTML);
     $("#close-box-notif").html(btnCloseModalHTML);
-    $("#href-box-notif, #close-box-notif").on("click", () => {
+    
+    // Remove any existing event handlers
+    $("#href-box-notif").off("click");
+    $("#close-box-notif").off("click");
+    
+    // Add new event handlers
+    $("#href-box-notif").on("click", (e) => {
+        e.preventDefault();
+        if (link) {
+            shell.openExternal(link);
+        } else {
+            e.preventDefault();
+        }
+        $("#box-notif").css("display", "none");
+    });
+    
+    $("#close-box-notif").on("click", (e) => {
+        e.preventDefault();
         $("#box-notif").css("display", "none");
     });
 };
@@ -1219,7 +1476,7 @@ ipcRenderer.on("start-link", (event, link) => {
     }
     window.showMessageUI(mainSTA.publicSet.settingsALL["lang"]["config_imported"] + link.split("://")[0]);
 });
-ipcRenderer.on("open-section", (event, section) => {
+ipcRenderer.on("open-section", async (event, section) => {
     if (section == "home") {
         $("#box-select-server").hide();
         $("#setting-app").hide();
@@ -1232,6 +1489,11 @@ ipcRenderer.on("open-section", (event, section) => {
     }
     else if (section == "servers") {
         $("#box-select-server").toggle();
+        // When opening the server selection box, ensure servers are up to date
+        if ($("#box-select-server").is(":visible")) {
+            await mainSTA.reloadServers();
+            window.showMessageUI(mainSTA.publicSet.settingsALL["lang"]["refreshed_isp_servers"]);
+        }
     }
 });
 // #endregion

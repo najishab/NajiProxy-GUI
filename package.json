@@ -4,7 +4,7 @@
     "description": "ProxyCloud GUI, Free, Fast",
     "keywords": [],
     "main": "./main.js",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "author": "Hossein Pira <h3dev.pira@gmail.com>",
     "scripts": {
         "start": "electron .",
