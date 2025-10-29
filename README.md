@@ -66,6 +66,67 @@ ProxyCloud GUI is a free, fast, and user-friendly desktop application for managi
 - Launch the application
 - You may need to grant additional permissions for TUN mode functionality
 
+> **Note for macOS Users**: Apple could not verify "ProxyCloud GUI" is free of malware that may harm your Mac or compromise your privacy. You can also use these commands to make it open:
+> ```
+> sudo spctl --master-disable
+> xattr -cr /Applications/ProxyCloud\ GUI.app
+> ```
+
+This error usually happens when macOS blocks osascript or when the app does not have the required permissions to control System Proxy or Network settings.
+
+Below are the steps you can follow to fix the issue:
+
+**1. Grant Automation Permissions**
+- Open System Settings (or System Preferences on older macOS)
+- Go to Privacy & Security → Automation
+- Look for ProxyCloud GUI in the list
+- Enable permissions for System Events or osascript
+
+**2. Grant Full Disk & Accessibility Access**
+- Open System Settings → Privacy & Security
+- Select Accessibility → click + → add ProxyCloud GUI
+- Go back and open Full Disk Access → add ProxyCloud GUI
+- This ensures the app can run scripts and manage proxy settings
+
+**3. Reset Automation Permissions (if needed)**
+If permissions are broken, you can reset them manually.
+
+Run this command in Terminal:
+
+```bash
+tccutil reset AppleEvents
+```
+
+Then restart ProxyCloud GUI and macOS will ask again for permissions.
+
+**4. Manual Proxy / TUN Mode Setup**
+If the automatic setup does not work, you can configure manually:
+
+**Proxy Mode**
+```bash
+networksetup -setwebproxy "Wi-Fi" 127.0.0.1 8086
+networksetup -setsecurewebproxy "Wi-Fi" 127.0.0.1 8086
+```
+
+To turn off:
+```bash
+networksetup -setwebproxystate "Wi-Fi" off
+networksetup -setsecurewebproxystate "Wi-Fi" off
+```
+
+**TUN Mode**
+Make sure you grant System Extension / VPN permission to the app. If blocked, open:
+
+System Settings → Privacy & Security → Allow system extension for ProxyCloud GUI.
+
+**5. Restart & Test**
+- Close ProxyCloud GUI completely
+- Reopen the app
+- Select System Proxy or TUN Mode
+- Test your connection
+
+If the problem continues, please send us logs or screenshots so we can help further.
+
 ### Linux
 
 - Download the latest Linux package (DEB, RPM, AppImage, or tar.gz) from the [Releases](https://github.com/code3-dev/ProxyCloud-GUI/releases) page
