@@ -63,20 +63,14 @@ jobs:
         if: matrix.os == 'windows-latest'
         shell: pwsh
         run: |
-          # Create the folder structure for x64
-          mkdir proxycloud-gui-x64
-          # Move the portable executable to the folder
-          Move-Item "dist/*portable.exe" "proxycloud-gui-x64/"
-          # Create zip file
-          Compress-Archive -Path "proxycloud-gui-x64" -DestinationPath "dist/proxycloud-gui-win-unpacked.zip"
+          # Create zip file for x64 win-unpacked folder
+          if (Test-Path "dist/win-unpacked") {
+            Compress-Archive -Path "dist/win-unpacked" -DestinationPath "dist/proxycloud-gui-win-unpacked.zip"
+          }
           
-          # Create the folder structure for ia32 if files exist
-          if (Test-Path "dist/win-ia32-*portable.exe") {
-            mkdir proxycloud-gui-ia32
-            # Move the ia32 portable executable to the folder
-            Move-Item "dist/win-ia32-*portable.exe" "proxycloud-gui-ia32/proxycloud-gui-win-ia32-portable.exe"
-            # Create zip file for ia32
-            Compress-Archive -Path "proxycloud-gui-ia32" -DestinationPath "dist/proxycloud-gui-win-ia32-unpacked.zip"
+          # Create zip file for ia32 win-unpacked folder if it exists
+          if (Test-Path "dist/win-ia32-unpacked") {
+            Compress-Archive -Path "dist/win-ia32-unpacked" -DestinationPath "dist/proxycloud-gui-win-ia32-unpacked.zip"
           }
 
       - name: Upload Artifact (Windows Portable EXE)
@@ -204,17 +198,35 @@ jobs:
             - [💼 Windows 7 32-bit Portable (.exe)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32-portable.exe)
             - [📂 Windows 7 32-bit Portable (.zip)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32-unpacked.zip)
 
+            **Important Notes for Windows Portable Version:**
+            - Run the application as Administrator for proper functionality
+            - For more information, see [Windows Portable Version Notes](https://github.com/code3-dev/ProxyCloud-GUI#important-notes-for-windows-portable-version)
+
             #### macOS
             - [🍎 macOS Intel (x64) (.dmg)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-mac-x64.dmg)
             - [🍎 macOS Apple Silicon (arm64) (.dmg)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-mac-arm64.dmg)
             - [📦 macOS Intel (x64) (.zip)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-mac-x64.zip)
             - [📦 macOS Apple Silicon (arm64) (.zip)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-mac-arm64.zip)
 
+            **Important Notes for macOS:**
+            - Configure required permissions through System Settings → Privacy & Security
+            - Enable Automation, Accessibility, Full Disk Access, and System Extension/VPN permissions
+            - For more information, see [macOS Notes](https://github.com/code3-dev/ProxyCloud-GUI#macos)
+
             #### Linux
             - [🐧 Linux (.deb)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-linux-amd64.deb)
             - [🐧 Linux (.rpm)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-linux-x86_64.rpm)
             - [🐧 Linux (.AppImage)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-linux-x86_64.AppImage)
             - [🐧 Linux (.tar.gz)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-linux-x64.tar.gz)
+
+            **Running in TUN Mode (Linux):**
+            - Requires root access with the following commands:
+              ```bash
+              xhost +SI:localuser:root
+              sudo -E proxycloud-gui --no-sandbox
+              xhost -SI:localuser:root
+              ```
+            - For more information, see [Linux TUN Mode Notes](https://github.com/code3-dev/ProxyCloud-GUI#running-in-tun-mode-linux)
 
             #### Arch Linux
 
