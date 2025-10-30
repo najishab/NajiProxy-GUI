@@ -80,7 +80,6 @@ jobs:
           name: proxycloud-gui-win-portable
           path: |
             dist/*portable.exe
-            dist/win-ia32-*portable.exe
 
       - name: Upload Artifact (Windows Portable ZIP with Folder)
         if: matrix.os == 'windows-latest'
@@ -108,7 +107,6 @@ jobs:
           name: proxycloud-gui-win-ia32-exe
           path: |
             dist/win-ia32-*.exe
-            !dist/win-ia32-*portable.exe
 
       - name: Upload Artifact (Linux DEB)
         if: matrix.os == 'ubuntu-latest'
@@ -195,7 +193,6 @@ jobs:
             - [💼 Windows Portable (.exe)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-portable.exe)
             - [📂 Windows Portable (.zip)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-unpacked.zip)
             - [📦 Windows 7 32-bit Installer (.exe)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32.exe)
-            - [💼 Windows 7 32-bit Portable (.exe)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32-portable.exe)
             - [📂 Windows 7 32-bit Portable (.zip)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32-unpacked.zip)
 
             **Important Notes for Windows Portable Version:**
