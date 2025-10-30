@@ -98,7 +98,6 @@ jobs:
           path: |
             dist/*.exe
             !dist/*portable.exe
-            !dist/win-ia32-*portable.exe
 
       - name: Upload Artifact (Windows ia32 EXE)
         if: matrix.os == 'windows-latest'
