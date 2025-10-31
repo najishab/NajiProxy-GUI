@@ -191,8 +191,8 @@ jobs:
             - [📦 Windows Installer (.exe)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-x64.exe)
             - [💼 Windows Portable (.exe)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-portable.exe)
             - [📂 Windows Portable (.zip)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-unpacked.zip)
-            - [📦 Windows 7 32-bit Installer (.exe)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32.exe)
-            - [📂 Windows 7 32-bit Portable (.zip)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32-unpacked.zip)
+            - [📦 Windows 32-bit Installer (.exe)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32.exe)
+            - [📂 Windows 32-bit Portable (.zip)](https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag || github.ref_name }}/proxycloud-gui-win-ia32-unpacked.zip)
 
             **Important Notes for Windows Portable Version:**
             - Run the application as Administrator for proper functionality
