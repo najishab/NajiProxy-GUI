@@ -7,7 +7,7 @@
         "vibe,;,https://raw.githubusercontent.com/sinabigo/Xray/main/@sinavm#VIBE FAST",
         "vibe,;,https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/mtn/sub_1.txt#ProxyNET | MTN",
         "vibe,;,https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/mtn/sub_1.txt#ProxyNET | MCI",
-        "vibe,;,https://raw.githubusercontent.com/Pawdroid/Free-servers/refs/heads/main/sub#FG | Freedom Link (best)",
+        "vibe,;,https://raw.githubusercontent.com/Pawdroid/Free-servers/refs/heads/main/sub#FG | Freedom Link (best)"
     ],
     "MCI": [
         "vibe,;,https://raw.githubusercontent.com/MahsaNetConfigTopic/config/refs/heads/main/xray_final.txt#ProxyNET Best",
@@ -24,5 +24,7 @@
     "TCI": [],
     "SHATEL": [],
     "PARSONLINE": [],
-    "other": []
+    "other": [
+        "vibe,;,https://raw.githubusercontent.com/darkvpnapp/CloudflarePlus/refs/heads/main/proxy#ProxyCloud"
+    ]
 }
