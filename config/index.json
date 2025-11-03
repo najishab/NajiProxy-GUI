@@ -1,21 +1,13 @@
 {
     "PUBLIC": [
         "vibe,;,https://raw.githubusercontent.com/Kwinshadow/TelegramV2rayCollector/main/sublinks/mix.txt#ProxyCloud Fast",
-        "vibe,;,https://raw.githubusercontent.com/MahsaNetConfigTopic/config/refs/heads/main/xray_final.txt#ProxyCloud MAX",
-        "vibe,;,https://raw.githubusercontent.com/Mahdi0024/ProxyCollector/master/sub/proxies.txt#Red Servers Beta",
         "vibe,;,https://raw.githubusercontent.com/darkvpnapp/CloudflarePlus/refs/heads/main/proxy#ProxyCloud",
         "vibe,;,https://raw.githubusercontent.com/NiREvil/vless/refs/heads/main/sub/SSTime#MAX Plus",
         "vibe,;,https://raw.githubusercontent.com/Rayan-Config/C-Sub/refs/heads/main/configs/proxy.txt#RCL",
-        "vibe,;,https://drive.google.com/uc?id=1qUt9w0TzocLzQ5fikHxpS90T3Sg5S3DU#@SiNAVM.json#FG",
-        "warp,;,gool=true&scan=true#WARP | GOOL+SCAN",
         "vibe,;,https://raw.githubusercontent.com/sinabigo/Xray/main/@sinavm#VIBE FAST",
         "vibe,;,https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/mtn/sub_1.txt#ProxyNET | MTN",
         "vibe,;,https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/mtn/sub_1.txt#ProxyNET | MCI",
-        "warp,;,scan=true#WARP | SCAN",
         "vibe,;,https://raw.githubusercontent.com/Pawdroid/Free-servers/refs/heads/main/sub#FG | Freedom Link (best)",
-        "vibe,;,https://raw.githubusercontent.com/hiddify/hiddify-next/main/test.configs/warp#%F0%9F%94%A5%20WARP%20%F0%9F%94%A5#VIBE | WARP SERVER",
-        "vibe,;,https://raw.githubusercontent.com/Ashkan-m/v2ray/main/Sub.txt#VIBE | POWER",
-        "vibe,;,https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/Eternity#VIBE | SERVER SUB 1"
     ],
     "MCI": [
         "vibe,;,https://raw.githubusercontent.com/MahsaNetConfigTopic/config/refs/heads/main/xray_final.txt#ProxyNET Best",
