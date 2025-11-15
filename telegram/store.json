@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Sub Mahsa",
+    "url": "https://raw.githubusercontent.com/parvinxs/Submahsanetxsparvin/refs/heads/main/Sub.mahsa.xsparvin",
+    "dev": "by @xsparvin"
+  },
+  {
+    "name": "TelegramV2rayCollector",
+    "url": "https://raw.githubusercontent.com/Kwinshadow/TelegramV2rayCollector/main/sublinks/mix.txt",
+    "dev": "by @Kwinshadow"
+  },
+  {
+    "name": "v2ray subscription",
+    "url": "https://raw.githubusercontent.com/hans-thomas/v2ray-subscription/refs/heads/master/servers.txt",
+    "dev": "by @hans_thomas"
+  },
+  {
+    "name": "سرور حجیم",
+    "url": "https://sub.amiralter.com/config",
+    "dev": "by @amiralter"
+  },
+  {
+    "name": "سرور خلاصه",
+    "url": "https://sub.amiralter.com/config-lite",
+    "dev": "by @amiralter"
+  },
+  {
+    "name": "MahsaFreeConfig MCI",
+    "url": "https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/mci/sub_1.txt",
+    "dev": "by @mahsang"
+  },
+  {
+    "name": "MahsaFreeConfig MTN",
+    "url": "https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/mtn/sub_1.txt",
+    "dev": "by @mahsang"
+  },
+  {
+    "name": "MahsaFreeConfig APP",
+    "url": "https://raw.githubusercontent.com/mahsanet/MahsaFreeConfig/refs/heads/main/app/sub.txt",
+    "dev": "by @mahsang"
+  },
+  {
+    "name": "CloudflarePlus",
+    "url": "https://raw.githubusercontent.com/darkvpnapp/CloudflarePlus/refs/heads/main/proxy",
+    "dev": "by darkvpnapp"
+  }
+]
