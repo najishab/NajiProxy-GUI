@@ -15,7 +15,6 @@ vless://02e46039-200d-4ae4-ac90-b0d619f72034@clyde.ns.cloudflare.com:443?path=%2
 
 vless://0771a171-7eea-4272-a6b1-3e29478e4473@helsinki.fonixapp.org:443?security=reality&encryption=none&pbk=C5xoRWKopqNXP5xmZsJQdejPRIoZpzWRgrtlNticyQA&headerType=none&fp=chrome&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=clients4.google.com&sid=78e514cf#%D9%81%D9%86%D9%84%D8%A7%D9%86%D8%AF%20%F0%9F%87%AB%F0%9F%87%AE
 
-vless://745688c6-43bb-4348-8033-6a091ec29c9e@london.fonixapp.org:443?security=reality&encryption=none&pbk=eJxj6P1fomCjwQMxLpuSN9SVCSE1ujqS5ztXYowRPSk&headerType=none&fp=chrome&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=developer.apple.com&sid=0ace2ef998182e5f#%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3%20%F0%9F%87%AC%F0%9F%87%A7
 
 vmess://eyJhZGQiOiIxNS4yMzUuODUuMTU2IiwiYWlkIjoiMCIsImFscG4iOiIiLCJmcCI6IiIsImhvc3QiOiJrYW1wb25nLm9yZyIsImlkIjoiMDNmY2M2MTgtYjkzZC02Nzk2LTZhZWQtOGEzOGM5NzVkNTgxIiwiaW5zZWN1cmUiOiIxIiwibmV0Ijoid3MiLCJwYXRoIjoibGlua3Z3cyIsInBvcnQiOiI0NDMiLCJwcyI6IvCfh6jwn4emIENBIiwic2N5IjoiYXV0byIsInNuaSI6ImthbXBvbmcub3JnIiwidGxzIjoidGxzIiwidHlwZSI6Ii0tLSIsInYiOiIyIn0=
 
@@ -34,11 +33,6 @@ vless://4ce38652-b84c-5aab-8b2c-f897a217b41b@russia.whitenet.online:443?security
 
 vless://f7af49ea-f51f-4c71-9e12-0c2f3085f3b8@216.106.176.106:8443?security=reality&encryption=none&pbk=NR1UvDvyRqeRmYG1MRf-Ie78a97cmYvI_MAVpmzsexk&headerType=none&fp=safari&type=tcp&flow=xtls-rprx-vision&sni=www.microsoft.com&sid=1c588428648ffc71#%F0%9F%87%BA%F0%9F%87%B8%20US
 
-vless://38021ff2-6778-4363-92b1-d70ac11acf51@25.25.25.253:2096?path=%2F&security=tls&encryption=none&insecure=0&host=spplesh.hatlikarious.org&fp=chrome&type=ws&allowInsecure=0&sni=spplesh.hatlikarious.org#%F0%9F%87%AC%F0%9F%87%A7%20GB
-
-vless://c52e7342-2c31-4f0b-83e9-007ad8d1691a@us01-vlr01-gmn03.vpnvezdehod.net:443?security=reality&encryption=none&pbk=mLmBhbVFfNuo2eUgBh6r9-5Koz9mUCn3aSzlR6IejUg&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=hls-svod.itunes.apple.com&sid=86e999a2cdc2#%F0%9F%87%B7%F0%9F%87%BA%20RU
-
-vless://e258977b-e413-4718-a3af-02d75492c349@47.57.190.228:8388?path=%2F%3Fed%3D2560&security=tls&encryption=none&insecure=0&host=www.x-aniu-----jp.netlib.re&fp=chrome&type=ws&allowInsecure=0&sni=www.x-aniu-----jp.netlib.re#%F0%9F%87%AD%F0%9F%87%B0%20HK
 
 vless://2456f90c-5183-476d-b069-16ae74ce120f@91.206.71.253:2096?path=%2F&security=tls&encryption=none&insecure=1&type=ws&allowInsecure=1&sni=fast01.0860852.xyz#%F0%9F%87%B3%F0%9F%87%B1%20NL
 
