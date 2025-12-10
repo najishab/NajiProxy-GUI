@@ -11,18 +11,7 @@ vless://02e46039-200d-4ae4-ac90-b0d619f72034@clyde.ns.cloudflare.com:443?path=%2
 
 vless://d3m1xvk50k@d3m1xvk50k-525340173-direct.bahame.co:443?security=tls&alpn=h2%2Chttp%2F1.1&encryption=none&insecure=1&headerType=none&fp=randomized&type=tcp&allowInsecure=1&flow=xtls-rprx-vision&sni=d3m1xvk50k-525340173-direct.bahame.co#%F0%9F%87%B7%F0%9F%87%B4%20RO
 
-vless://481c5606-b586-44d7-bc2e-d8ef30d67f62@176.120.72.63:38339?security=reality&encryption=none&pbk=o0MFuznHh_Wztg0FTAMhFXm3hjAqOJAJIIVNn-_A9WA&headerType=none&fp=chrome&type=tcp&sni=dl.google.com&sid=e16883e511#NajiProxy%20%F0%9F%87%B0%F0%9F%87%BF
 
-
-
-
-
-vless://53f0bca8-f170-4ef7-8031-c7d441189dbf@norman.ns.cloudflare.com:443?path=%2Fcahttingws&security=tls&encryption=none&insecure=1&host=639004957474582477.tiguan-amsit.info&type=ws&allowInsecure=1&sni=639004957474582477.tiguan-amsit.info#NajiProxy%20%F0%9F%87%A8%F0%9F%87%A6
-
-
-vless://22eba6de-256f-4d92-8c79-9b66204d40b0@dl.darkterror.fonixapp.org:443?security=reality&encryption=none&pbk=SOloMl69oKpNpX3b-Ec5n3chWjmprNQ_UnFvAzI-JxE&headerType=none&fp=chrome&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=init.itunes.apple.com&sid=056a#NajiProxy%20%F0%9F%87%A9%F0%9F%87%AA
-
-vless://1437fec7-064b-4f8f-98f4-8c9aad3738b0@dubai.fonixapp.org:443?security=reality&encryption=none&pbk=HZM7SXNCsT5M_zWuBURZfplLY-L5Gqww5qRPJZAP8C4&headerType=none&fp=chrome&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=ajax.cloudflare.com&sid=754dc2#NajiProxy%20%F0%9F%87%A6%F0%9F%87%AA
 
 vmess://eyJhZGQiOiIxMzQuMTk1LjE5OC4xNDciLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6ImlubmEuY2ZkIiwiaWQiOiIwM2ZjYzYxOC1iOTNkLTY3OTYtNmFlZC04YTM4Yzk3NWQ1ODEiLCJpbnNlY3VyZSI6IjEiLCJuZXQiOiJ3cyIsInBhdGgiOiIvbGlua3Z3cyIsInBvcnQiOiI0NDMiLCJwcyI6Ik5hamlQcm94eSDwn4eo8J+HpiIsInNjeSI6ImF1dG8iLCJzbmkiOiJpbm5hLmNmZCIsInRscyI6InRscyIsInR5cGUiOiItLS0iLCJ2IjoiMiJ9
 
@@ -35,8 +24,6 @@ vless://7c63f43f-f526-49bb-b5c8-2be26e11ef00@statue.lnmarketplace.net:443?mode=s
 vless://923509aa-bfb0-4758-a5a1-a6c2d0468169@172.66.45.18:443?path=%2Fck2vlelfdajoybac%3Fed%3D2560&security=tls&encryption=none&insecure=1&host=ef87bb2b.meti-e9q.pages.dev&fp=chrome&type=ws&allowInsecure=1&sni=ef87bb2b.meti-e9q.pages.dev#NajiProxy%20%F0%9F%87%A8%F0%9F%87%A6
 
 vmess://eyJhZGQiOiI1Ny4xMjkuNjQuMTYzIiwiYWlkIjoiMCIsImFscG4iOiIiLCJmcCI6IiIsImhvc3QiOiJ5aWNodWVuZy5vcmciLCJpZCI6IjAzZmNjNjE4LWI5M2QtNjc5Ni02YWVkLThhMzhjOTc1ZDU4MSIsImluc2VjdXJlIjoiMSIsIm5ldCI6IndzIiwicGF0aCI6Imxpbmt2d3MiLCJwb3J0IjoiNDQzIiwicHMiOiJOYWppUHJveHkg8J+HqfCfh6oiLCJzY3kiOiJhdXRvIiwic25pIjoieWljaHVlbmcub3JnIiwidGxzIjoidGxzIiwidHlwZSI6Ii0tLSIsInYiOiIyIn0=
-
-vless://fd0718a1-c463-4297-8ba9-a7f4b93ce436@147.45.234.51:443?security=reality&encryption=none&pbk=GjFTD96cethyxcRuToHUwv741QoDB9-V7LRsxEh6jTU&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=www.vk.com&sid=ab1cd2#NajiProxy%20%F0%9F%87%B3%F0%9F%87%B1
 
 vless://7556317c-dff6-46e8-ad29-b408f2a6456e@104.19.106.68:2096?path=%2FTelegram%20%40ShadowProxy66%20%2F%3Fed%3D2560&security=tls&encryption=none&insecure=1&host=vless.muzheng.top&type=ws&allowInsecure=1&sni=vless.muzheng.top#NajiProxy%20%F0%9F%87%BA%F0%9F%87%B8
 
