@@ -3,70 +3,22 @@ vless://ef0bcec7-bcd9-4047-8cd1-17a67464fffa@najisub.med1057ia.workers.dev:443?p
 vless://f61a4285-7264-4d07-9408-7b9ba1922c26@25.25.25.253:2096?path=%2F%3FTELEGRAM-MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI%3Fed%3D512&security=tls&encryption=none&insecure=1&host=gaosir.unfeeling.sbs&type=ws&allowInsecure=1&sni=gaosir.unfeeling.sbs#%D9%88%D8%A7%D8%B1%D9%BE%20%D9%85%D8%AA%D8%BA%DB%8C%D8%B1%20%F0%9F%8F%B4%E2%80%8D%E2%98%A0%EF%B8%8F
 
 
-vless://fe21e399-ec6f-4cb5-8441-e911178665b1@185.136.132.171:24170?security=reality&encryption=none&pbk=VsmNi1ZMXVOwhCWpbCp51w-D_DzrxWX4jgfpcU0S9G4&headerType=none&fp=chrome&spx=%2F&type=tcp&sni=speedtest.net&sid=2fb2106a629b#%D8%A7%D8%B3%D8%B1%D8%A7%D8%A6%DB%8C%D9%84%20%F0%9F%87%AE%F0%9F%87%B1
-
 vless://ee122f13-9b54-49b6-abc5-aa47b464fdb3@norman.ns.cloudflare.com:443?path=%2Fyhowcws&security=tls&encryption=none&insecure=1&host=azizoarjmand.info&type=ws&allowInsecure=1&sni=azizoarjmand.info#%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3%20%F0%9F%87%AC%F0%9F%87%A7
-
-vless://1b2c91ab-f6c9-42f8-b2c6-8de0ac133d63@brenna.ns.cloudflare.com:443?path=%2Fsghiyws&security=tls&encryption=none&insecure=1&host=terazhedi.info&type=ws&allowInsecure=1&sni=terazhedi.info#%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3%20%F0%9F%87%AC%F0%9F%87%A7
 
 vless://7270612b-49f6-4b04-999c-34d8263da767@cosmin.ns.cloudflare.com:443?path=%2Faymdlws&security=tls&encryption=none&insecure=1&host=picassoo.info&type=ws&allowInsecure=1&sni=picassoo.info#%D9%85%D9%88%D9%84%D8%AF%D8%A7%D9%88%DB%8C%20%F0%9F%87%B2%F0%9F%87%A9
 
 vless://02e46039-200d-4ae4-ac90-b0d619f72034@clyde.ns.cloudflare.com:443?path=%2Faafeuws&security=tls&encryption=none&insecure=1&host=redlabell.info&type=ws&allowInsecure=1&sni=redlabell.info#%D9%87%D9%84%D9%86%D8%AF%20%F0%9F%87%B3%F0%9F%87%B1
 
-vless://0771a171-7eea-4272-a6b1-3e29478e4473@helsinki.fonixapp.org:443?security=reality&encryption=none&pbk=C5xoRWKopqNXP5xmZsJQdejPRIoZpzWRgrtlNticyQA&headerType=none&fp=chrome&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=clients4.google.com&sid=78e514cf#%D9%81%D9%86%D9%84%D8%A7%D9%86%D8%AF%20%F0%9F%87%AB%F0%9F%87%AE
-
-
-vmess://eyJhZGQiOiIxNS4yMzUuODUuMTU2IiwiYWlkIjoiMCIsImFscG4iOiIiLCJmcCI6IiIsImhvc3QiOiJrYW1wb25nLm9yZyIsImlkIjoiMDNmY2M2MTgtYjkzZC02Nzk2LTZhZWQtOGEzOGM5NzVkNTgxIiwiaW5zZWN1cmUiOiIxIiwibmV0Ijoid3MiLCJwYXRoIjoibGlua3Z3cyIsInBvcnQiOiI0NDMiLCJwcyI6IvCfh6jwn4emIENBIiwic2N5IjoiYXV0byIsInNuaSI6ImthbXBvbmcub3JnIiwidGxzIjoidGxzIiwidHlwZSI6Ii0tLSIsInYiOiIyIn0=
-
-vmess://eyJhZGQiOiI1Ny4xMjkuNTkuMTk1IiwiYWlkIjoiMCIsImFscG4iOiIiLCJmcCI6IiIsImhvc3QiOiJrYW1wb25nLm9yZyIsImlkIjoiMDNmY2M2MTgtYjkzZC02Nzk2LTZhZWQtOGEzOGM5NzVkNTgxIiwiaW5zZWN1cmUiOiIxIiwibmV0Ijoid3MiLCJwYXRoIjoibGlua3Z3cyIsInBvcnQiOiI0NDMiLCJwcyI6IvCfh6nwn4eqIERFIiwic2N5IjoiYXV0byIsInNuaSI6ImthbXBvbmcub3JnIiwidGxzIjoidGxzIiwidHlwZSI6Ii0tLSIsInYiOiIyIn0=
-
-vmess://eyJhZGQiOiI1Ny4xMjkuMjguNjUiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6ImthcGVsbGVuZy5jb20iLCJpZCI6IjAzZmNjNjE4LWI5M2QtNjc5Ni02YWVkLThhMzhjOTc1ZDU4MSIsImluc2VjdXJlIjoiMSIsIm5ldCI6IndzIiwicGF0aCI6Ii9saW5rdndzIiwicG9ydCI6IjQ0MyIsInBzIjoi8J+HqfCfh6ogREUiLCJzY3kiOiJhdXRvIiwic25pIjoia2FwZWxsZW5nLmNvbSIsInRscyI6InRscyIsInR5cGUiOiItLS0iLCJ2IjoiMiJ9
-
-vmess://eyJhZGQiOiIxNDYuNTkuNzAuMTQ2IiwiYWlkIjoiMCIsImFscG4iOiIiLCJmcCI6IiIsImhvc3QiOiJ5aWNodWVuZy5vcmciLCJpZCI6IjAzZmNjNjE4LWI5M2QtNjc5Ni02YWVkLThhMzhjOTc1ZDU4MSIsImluc2VjdXJlIjoiMSIsIm5ldCI6IndzIiwicGF0aCI6Imxpbmt2d3MiLCJwb3J0IjoiNDQzIiwicHMiOiLwn4e18J+HsSBQTCIsInNjeSI6ImF1dG8iLCJzbmkiOiJ5aWNodWVuZy5vcmciLCJ0bHMiOiJ0bHMiLCJ0eXBlIjoiLS0tIiwidiI6IjIifQ==
-
-
-vless://fd0718a1-c463-4297-8ba9-a7f4b93ce436@147.45.234.51:443?security=reality&encryption=none&pbk=GjFTD96cethyxcRuToHUwv741QoDB9-V7LRsxEh6jTU&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=www.vk.com&sid=ab1cd2#%F0%9F%87%B3%F0%9F%87%B1%20NL
-
-
-vless://4ce38652-b84c-5aab-8b2c-f897a217b41b@russia.whitenet.online:443?security=reality&encryption=none&pbk=xdNyDss0OLTu3z6kcdg8X2wfTOLtmDTobE2on3vKe34&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=vk.com&sid=ab1cd2#%F0%9F%87%B7%F0%9F%87%BA%20RU
-
-
-vless://f7af49ea-f51f-4c71-9e12-0c2f3085f3b8@216.106.176.106:8443?security=reality&encryption=none&pbk=NR1UvDvyRqeRmYG1MRf-Ie78a97cmYvI_MAVpmzsexk&headerType=none&fp=safari&type=tcp&flow=xtls-rprx-vision&sni=www.microsoft.com&sid=1c588428648ffc71#%F0%9F%87%BA%F0%9F%87%B8%20US
-
-
-vless://2456f90c-5183-476d-b069-16ae74ce120f@91.206.71.253:2096?path=%2F&security=tls&encryption=none&insecure=1&type=ws&allowInsecure=1&sni=fast01.0860852.xyz#%F0%9F%87%B3%F0%9F%87%B1%20NL
-
 vless://d3m1xvk50k@d3m1xvk50k-525340173-direct.bahame.co:443?security=tls&alpn=h2%2Chttp%2F1.1&encryption=none&insecure=1&headerType=none&fp=randomized&type=tcp&allowInsecure=1&flow=xtls-rprx-vision&sni=d3m1xvk50k-525340173-direct.bahame.co#%F0%9F%87%B7%F0%9F%87%B4%20RO
-
-vless://2a9ed01e-5455-44b4-a66a-76ee8165f0ac@77.73.232.61:19747?security=reality&encryption=none&pbk=ZO9dTeg1slvTXgVsBsaJ1BDvz_YUImTLJjbHs-GdVyM&headerType=none&fp=chrome&type=tcp&sni=yahoo.com&sid=2001#%F0%9F%87%B0%F0%9F%87%BF%20KZ
-
-vless://6bb90b5a-db5b-401d-afa9-49667e75de1e@77.73.238.211:16109?security=reality&encryption=none&pbk=SaMw05aDLQh_Bb55XStVfvcBinGmCmCrZGqg5yI6s2s&host=---%40External_Net---%40External_Net---%40External_Net---%40External_Net---%40External_Net&headerType=none&fp=chrome&spx=%2F&type=tcp&sni=yahoo.com&sid=46ef6b9bc8#%F0%9F%87%B1%F0%9F%87%BB%20LV
-
-vless://099dbf2d-a8e0-406e-a85f-eba0ac9a68aa@195.135.252.28:443?security=reality&encryption=none&pbk=hGGVm0PiHJwNL34pBG6NLtbFGYVdcWhDu5zHYDoct08&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yahoo.com&sid=4360e536#%F0%9F%87%B1%F0%9F%87%BB%20LV
-
-ss://YWVzLTEyOC1nY206dThncDE0OGl6OTBkZG9vNm1zMzc@146.70.90.196:17454#NajiProxy%20%F0%9F%87%AE%F0%9F%87%AA
-
-vless://5b687f17-0176-495e-84a1-0835f8feec91@delilah.ns.cloudflare.com:443?path=%2Fegakxows&security=tls&encryption=none&insecure=1&host=639002592262919469.sentra-amsir.info&type=ws&allowInsecure=1&sni=639002592262919469.sentra-amsir.info#NajiProxy%20%F0%9F%87%A8%F0%9F%87%A6
 
 vless://481c5606-b586-44d7-bc2e-d8ef30d67f62@176.120.72.63:38339?security=reality&encryption=none&pbk=o0MFuznHh_Wztg0FTAMhFXm3hjAqOJAJIIVNn-_A9WA&headerType=none&fp=chrome&type=tcp&sni=dl.google.com&sid=e16883e511#NajiProxy%20%F0%9F%87%B0%F0%9F%87%BF
 
-vless://ac51ad36-5052-460a-842a-e13455d30cb8@141.101.114.197:2083?path=%2Fassets%3Fed%3D2560&security=tls&encryption=none&insecure=1&fp=chrome&type=ws&allowInsecure=1&sni=RR-FF.pages.DEV#NajiProxy%20%F0%9F%87%BA%F0%9F%87%B8
 
-vless://2456f90c-5183-476d-b069-16ae74ce120f@91.206.71.253:2096?path=%2F&security=tls&encryption=none&insecure=1&type=ws&allowInsecure=1&sni=fast01.0860852.xyz#NajiProxy%20%F0%9F%87%B3%F0%9F%87%B1
 
-vless://97b2cd5b-b98d-494f-8f97-3a06e8c1bbd2@151.101.195.6:443?mode=auto&security=tls&alpn=h3&encryption=none&insecure=1&host=adsmiatm1764454498.global.ssl.fastly.net&fp=chrome&type=xhttp&allowInsecure=1&sni=hls-amt.itunes.apple.com#NajiProxy%20%F0%9F%87%A8%F0%9F%87%A6
 
-vless://097712e8-666a-42e2-aebf-c03d597d8482@cosmin.ns.cloudflare.com:443?path=%2Fmcqvlfws&security=tls&encryption=none&insecure=0&type=ws&allowInsecure=0&sni=639002745868715407.golf-amsir.info#NajiProxy%20%F0%9F%87%A8%F0%9F%87%A6
-
-vless://b0e5da32-8bb4-4e65-94f1-99ddeefeaa5e@ium3uojslvj2shb1yh8zu7etc34vmyfb.z8f5hmu0ue.workers.dev:443?security=tls&encryption=none&insecure=1&fp=chrome&type=ws&allowInsecure=1&sni=PmlMyazd.pagEs.Dev#NajiProxy%20%F0%9F%87%A8%F0%9F%87%A6
-
-vless://bbaae536-aa71-4efc-a07f-077a5223e38f@cosmin.ns.cloudflare.com:443?path=%2Fcodrzfws&security=tls&encryption=none&insecure=1&host=639007937653373146.forester-amsiw.info&type=ws&allowInsecure=1&sni=639007937653373146.forester-amsiw.info#NajiProxy%20%F0%9F%87%A8%F0%9F%87%B7
 
 vless://53f0bca8-f170-4ef7-8031-c7d441189dbf@norman.ns.cloudflare.com:443?path=%2Fcahttingws&security=tls&encryption=none&insecure=1&host=639004957474582477.tiguan-amsit.info&type=ws&allowInsecure=1&sni=639004957474582477.tiguan-amsit.info#NajiProxy%20%F0%9F%87%A8%F0%9F%87%A6
 
-vless://745688c6-43bb-4348-8033-6a091ec29c9e@london.fonixapp.org:443?security=reality&encryption=none&pbk=eJxj6P1fomCjwQMxLpuSN9SVCSE1ujqS5ztXYowRPSk&headerType=none&fp=chrome&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=developer.apple.com&sid=0ace2ef998182e5f#NajiProxy%20%F0%9F%87%AC%F0%9F%87%A7
-
-vless://0771a171-7eea-4272-a6b1-3e29478e4473@helsinki.fonixapp.org:443?security=reality&encryption=none&pbk=C5xoRWKopqNXP5xmZsJQdejPRIoZpzWRgrtlNticyQA&headerType=none&fp=chrome&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=clients4.google.com&sid=78e514cf#NajiProxy%20%F0%9F%87%AB%F0%9F%87%AE
 
 vless://22eba6de-256f-4d92-8c79-9b66204d40b0@dl.darkterror.fonixapp.org:443?security=reality&encryption=none&pbk=SOloMl69oKpNpX3b-Ec5n3chWjmprNQ_UnFvAzI-JxE&headerType=none&fp=chrome&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=init.itunes.apple.com&sid=056a#NajiProxy%20%F0%9F%87%A9%F0%9F%87%AA
 
@@ -98,6 +50,3 @@ vmess://eyJhZGQiOiI1Ny4xMjkuMjUuMjAiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9z
 
 vless://18881ae6-1e7d-48db-9c2f-27da9a58d63e@65.109.179.90:443?security=tls&encryption=none&insecure=1&headerType=none&type=tcp&allowInsecure=1#NajiProxy%20%F0%9F%87%AB%F0%9F%87%AE
 
-vless://Warpi-Free-Vpn-In-GooglePlay@www.speedtest.net:80?mode=auto&path=%2F%40WarpiFree---%40WarpiFree---%40WarpiFree---%40WarpiFree&security=none&encryption=none&host=vp9.mydatacloud2.ir&type=xhttp#NajiProxy%20%F0%9F%87%A9%F0%9F%87%AA
-
-vless://Warpi-Free-Vpn-In-GooglePlay@www.speedtest.net:80?mode=auto&path=%2F%40WarpiFree---%40WarpiFree---%40WarpiFree---%40WarpiFree&security=none&encryption=none&host=vp12.mydatacloud2.ir&type=xhttp#NajiProxy%20%F0%9F%87%A9%F0%9F%87%AA
