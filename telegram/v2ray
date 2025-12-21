@@ -18,6 +18,11 @@ vless://be894bb1-69f0-4fcd-d3e1-7858b74b906e@usaa.fastlynew.hosting-ip.com:80?pa
 
 vless://309fa273-6579-4cb2-9143-7cad50401eba@45.8.145.61:443?security=reality&encryption=none&pbk=gZGVp5PUdafgsmi1gawa1yLuha_XhXRc_W9SvPiGmTY&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=www.cloudflare.com&sid=7cad5040#%D8%B1%D9%88%D8%B3%DB%8C%D9%87%20%DB%8C%D9%84%D8%AF%D8%A7%20%DB%B2
 
+vless://de8ebf94-883b-46e0-b276-2c3cd0c96e4e@trt.fastlynew.hosting-ip.com:80?mode=auto&path=%2F%3Fed%3D2560&security=none&encryption=none&host=maxde219.global.ssl.fastly.net&type=xhttp#%D8%A2%D9%84%D9%85%D8%A7%D9%86%20%DB%8C%D9%84%D8%AF%D8%A7%20%DB%B3
+
+trojan://POORIARED@172.67.134.185:443?path=%2FeyJqdW5rIjoiVUl6eXhLZkkwUTJ3ZzkiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119%3Fed&security=tls&insecure=1&fp=chrome&type=ws&allowInsecure=1&sni=reDfRee8.REDFree8.ir#%D9%88%D8%A7%D8%B1%D9%BE%20%DB%8C%D9%84%D8%AF%D8%A7
+
+trojan://POORIARED@172.67.134.185:443?path=%2FeyJqdW5rIjoiVUl6eXhLZkkwUTJ3ZzkiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119%3Fed%3D2560&security=tls&insecure=1&fp=chrome&type=ws&allowInsecure=1&sni=reDfRee8.REDFree8.ir#%D9%88%D8%A7%D8%B1%D9%BE%20%DB%8C%D9%84%D8%AF%D8%A7%20%DB%B2
 
 trojan://POORIARED@172.67.134.185:443?path=%2FeyJqdW5rIjoiVUl6eXhLZkkwUTJ3ZzkiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119%3Fed%3D2560&security=tls&insecure=1&fp=chrome&type=ws&allowInsecure=1&sni=reDfRee8.REDFree8.ir#%F0%9F%87%A9%F0%9F%87%AA%20Germany
 
