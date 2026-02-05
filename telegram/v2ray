@@ -59,13 +59,20 @@ vless://9dadf4a6-2ed5-4414-982f-05befa366905@146.185.240.23:8443?security=realit
 
 vless://e4824193-4f54-453b-d037-88368e85ef0e@172.67.249.36:443?mode=gun&security=tls&alpn=h2&encryption=none&insecure=0&type=grpc&allowInsecure=0&sni=pqh30v5.carwashipdir.shop#%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7%20%F0%9F%87%BA%F0%9F%87%B8
 
-vless://9dadf4a6-2ed5-4414-982f-05befa366905@212.111.84.64:8443?security=reality&encryption=none&pbk=zii4nGNapnFKL6SN8GzWNqFlElBvUCUFUThEP0kFH04&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=m.vk.ru&sid=205748bc0f24a747#%D8%AA%D8%B1%DA%A9%DB%8C%D9%87%20%F0%9F%87%B9%F0%9F%87%B7
+vmess://eyJhZGQiOiIxNzIuNjcuMjA0Ljg0IiwiYWlkIjoiMCIsImFscG4iOiIiLCJmcCI6IiIsImhvc3QiOiJuYXNuZXQtNTExOTUyNDI0Lm1jaXRlbC5jbyIsImlkIjoibmFzbmV0IiwiaW5zZWN1cmUiOiIxIiwibmV0Ijoid3MiLCJwYXRoIjoiL25hc25ldC9jZG4iLCJwb3J0IjoiODA4MCIsInBzIjoi2YHYsdin2YbYs9mHIiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiItLS0iLCJ2IjoiMiJ9
 
-vless://87d5d710-e07d-453b-8530-f743513024ba@37.139.34.145:8443?security=reality&encryption=none&pbk=zr8_rtHm86s_G1gfRwNtunStGngYZSdYkA3PyBFXpDg&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=m.vk.ru&sid=28047c78b3f5ee2c#%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%DB%8C%D8%A7%20%F0%9F%87%AA%F0%9F%87%B8
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpsanFkYWx1MTMuLg@3.1.195.148:8316#%F0%9F%87%B8%F0%9F%87%AC%20SG%20%7C%20%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%D8%B3%D9%84%20%D8%B1%D8%A7%DB%8C%D8%AA%D9%84
 
-vless://26ac9829-3344-4990-80c4-7001b07933d0@37.139.33.57:8443?security=reality&encryption=none&pbk=_CjW0Khlrr5z5oc9Oy6-w2ZEanz-zMBktVn5EOX9oTM&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=m.vk.ru&sid=6419bed7fd0a2cff#%D8%A7%DB%8C%D8%AA%D8%A7%D9%84%DB%8C%D8%A7%20%F0%9F%87%AE%F0%9F%87%B9
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpsanFkYWx1MTMuLg@3.1.195.148:8319#%F0%9F%87%B8%F0%9F%87%AC%20SG%20%7C%20%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%D8%B3%D9%84
 
-vless://beab408c-6aa3-43b9-a1ca-e6fabba5d8e7@195.133.195.2:443?security=reality&encryption=none&pbk=rTp9PEn36FtQFu32jWAPO3r-e1W2px3RGSuhR-L1DVM&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yahoo.com#%D9%87%D9%84%D9%86%D8%AF%20%F0%9F%87%B3%F0%9F%87%B1
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.61:8080#%F0%9F%87%AC%F0%9F%87%A7%20GB%20%7C%20%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%D8%B3%D9%84
 
-vless://beab408c-6aa3-43b9-a1ca-e6fabba5d8e7@45.148.119.215:443?security=reality&encryption=none&pbk=rTp9PEn36FtQFu32jWAPO3r-e1W2px3RGSuhR-L1DVM&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yahoo.com#%D9%84%D9%87%D8%B3%D8%AA%D8%A7%D9%86%20%F0%9F%87%B5%F0%9F%87%B1
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpwdmd6OXBx@54.36.174.140:443#%F0%9F%87%AB%F0%9F%87%B7%20FR%20%7C%20%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%D8%B3%D9%84
 
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpsanFkYWx1MTMuLg@3.1.195.148:8313#%F0%9F%87%B8%F0%9F%87%AC%20SG%20%7C%20ipv6
+
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@82.38.31.210:8080#%F0%9F%87%AC%F0%9F%87%A7%20GB%20%7C%20ipv6
+
+vmess://eyJhZGQiOiI1Ny4xMjguMTg5LjI0MCIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0IjoiIiwiaWQiOiIwM2ZjYzYxOC1iOTNkLTY3OTYtNmFlZC04YTM4Yzk3NWQ1ODEiLCJpbnNlY3VyZSI6IjEiLCJuZXQiOiJ3cyIsInBhdGgiOiIvbGlua3Z3cyIsInBvcnQiOiI0NDMiLCJwcyI6IvCfh6vwn4e3IEZSIHwg2KfbjNix2KfZhtiz2YQiLCJzY3kiOiJhdXRvIiwic25pIjoiIiwidGxzIjoidGxzIiwidHlwZSI6Ii0tLSIsInYiOiIyIn0=
+
+trojan://telegram-id-privatevpns@13.38.170.83:22222?security=tls&insecure=1&headerType=none&type=tcp&allowInsecure=1#%F0%9F%87%AB%F0%9F%87%B7%20FR%20%7C%20%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%D8%B3%D9%84%20%D8%B1%D8%A7%DB%8C%D8%AA%D9%84
