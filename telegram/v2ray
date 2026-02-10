@@ -38,3 +38,8 @@ vless://07ea560a-f752-4c61-ba74-eab341c0d813@www.speedtest.net:443?path=%2FeyJqd
 
 vless://07ea560a-f752-4c61-ba74-eab341c0d813@104.21.78.73:443?path=%2FeyJqdW5rIjoiR3FFbkszSmMiLCJwcm90b2NvbCI6InZsIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119%3Fed%3D2560&security=tls&alpn=http%2F1.1&encryption=none&insecure=1&fp=chrome&type=ws&allowInsecure=1&sni=NajiKHAn23.mEd1057ia.wORKeRs.DEV#%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%D8%B3%D9%84%20%DB%B9
 
+vmess://eyJhZGQiOiIxNzIuNjQuMTQ5LjE4MiIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0IjoibmFzbmV0LTU3MTI5NjQxMDIuc2hhcmdoZGFpbHkuY28iLCJpZCI6Im5hc25ldCIsImluc2VjdXJlIjoiMSIsIm5ldCI6IndzIiwicGF0aCI6Ii9uYXNuZXQvY2RuP2VkXHUwMDNkMjU2MCIsInBvcnQiOiI4MDgwIiwicHMiOiJDb25maWcgMSIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoiLS0tIiwidiI6IjIifQ==
+
+trojan://telegram-id-privatevpns@18.199.2.96:22222?security=tls&insecure=1&headerType=none&type=tcp&allowInsecure=1#Config%202
+
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpjYzI3YTMwMTJkODFhNDRj@213.156.137.142:43661#Config%203
