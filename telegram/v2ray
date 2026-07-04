@@ -6,6 +6,11 @@ vless://4fb30f87-a9c2-43de-994f-9228fe4dac17@151.101.193.57:80/?type=ws&encrypti
 
 vless://4fb30f87-a9c2-43de-994f-9228fe4dac17@179.237.74.183:443/?type=grpc&encryption=none&flow=&serviceName=xyz&sni=yahoo.com&allowInsecure=1&fp=chrome&security=reality&pbk=MhOa-Fkr656VVRcxXd27gam263cdXF_uyGiHZZEISUA&sid=ce741cbe468babc7#US%20%F0%9F%87%BA%F0%9F%87%B8
 
+vless://eab915bc-d2df-73d1-47d0-6eb240497055@gr1.fifapes.monster:8882?security=none&encryption=none&headerType=http&type=tcp#%40naji_shab
+
+vless://ecd962f4-2785-4cd4-8384-7d71fb857350@fsxhh.fastshop1.com:443?mode=packet-up&path=%2Flizzard&security=tls&encryption=none&insecure=1&host=lizzardali.global.ssl.fastly.net&fp=firefox&type=xhttp&allowInsecure=1&sni=speedtest.net#%40naji_shab
+
+vless://8d5e7f2a-3c1b-4d9e-a6f8-2b5c0e7d4a19@43.164.0.59:666?path=%2Fproxy&security=tls&encryption=none&insecure=1&type=ws&allowInsecure=1&sni=43.164.0.59#%40naji_shab
 
 vless://c2f0a8f0-36fe-4a94-824b-bca271ca642b@188.114.97.6:443?path=%2Fws&security=tls&encryption=none&insecure=0&host=alphacdn.alphashops.shop&fp=chrome&type=ws&allowInsecure=0&sni=alphacdn.alphashops.shop#%D8%AA%D8%B1%DA%A9%DB%8C%D9%87
 
